@@ -1,0 +1,30 @@
+
+<div class="blog-index">
+{% for p in posts %}
+	<article>
+		 <header>
+		  	<h1 class="entry-title"><a href="{{ p.url }}">{{ p.title }}</a></h1>
+			<p class="meta"><time datetime="{{ p.dateGTM }}" 
+			pubdate data-updated="true">{{ p.date }}</time></p>
+		 </header>
+	  	<div class="entry-content">
+		  	
+		  	{{ p.desContent }}
+
+		</div>
+
+		{% if p.readMore.length %} 
+		 <footer>
+      	<a rel="full-article" href="{{ p.url }}#more">read more &rarr;</a>
+    	</footer>
+    	{% /if %}
+
+	</article>
+ {% /for %} 
+	<div class="pagination">
+	{% if nextPageUrl.length %} <a class="prev" href="{{ nextPageUrl }}">&larr; Older</a> {% /if %}
+<a href="archives.html">Blog Archives</a>
+	{% if prevPageUrl.length %} <a class="next" href="{{ prevPageUrl }}">Newer &rarr;</a> {% /if %} 
+	    
+	</div>
+</div>

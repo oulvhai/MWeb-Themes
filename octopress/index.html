@@ -1,0 +1,2777 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>sjpsega's Blog</title>
+  <meta name="author" content="sjpsega">
+  <meta name="description" content="t 元素聚焦问题 bug 演示 bug &hellip;">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="favicon.png" rel="icon">
+  <link href="asset/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="atom.xml" rel="alternate" title="sjpsega's Blog" type="application/atom+xml">
+  <script src="asset/js/modernizr-2.0.js"></script>
+  <script src="asset/js/jquery.min.js"></script>
+  <script src="asset/js/octopress.js" type="text/javascript"></script>
+
+</head>
+<script type="text/javascript">
+//链接新开窗口
+function addBlankTargetForLinks () {
+  $('a[href^="http"]').each(function(){
+      $(this).attr('target', '_blank');
+  });
+}
+$(document).ready(function(event) {
+  addBlankTargetForLinks();
+});
+</script>
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">sjpsega's Blog</a></h1>
+  
+    <h2>记录我的生活与学习.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:sjpsega.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">所有文章</a></li>
+  <li><a href="/blog/categories/study">学习</a></li>
+  <li><a href="/blog/categories/life">生活</a></li>
+  <li><a href="http://weibo.com/sjpsega" target="_blank">我的微博</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+
+    
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/06/ios-h5-trap/">iOS H5的那些坑</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-06T17:47:30+08:00" pubdate data-updated="true">Aug 6<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近做 iOS H5 项目，需要针对 iOS 的 webView 做适配，发现几个非常恶心的 bug。</p>
+
+<p>因为现在据统计 iOS7 的占比超过80%，所以适配主要针对 iOS7，但是 iOS7 不同版本缺有不同的 bug，真是让人蛋疼。</p>
+
+<h2>iOS 7.0 input 元素聚焦问题</h2>
+
+<h3>bug 演示</h3>
+
+<p><img src="/images/2014-08-06-ios-h5-trap/ios7.0bug.gif" alt="ios7.0bug.gif" /></p>
+
+<h3>bug 分析</h3>
+
+<p>点击屏幕下方的input元素，且该元素在键盘弹起的区域内；当键盘弹起时，input 元素未获得焦点，且 input 元素不在可视范围内，没有进行自动定位调整。</p>
+
+<p>但 input 元素不在键盘弹起的区域内，当键盘弹起时，一切正常。</p>
+
+<p>该 bug，iOS &lt; 7.1 有问题，>=7.1 无问题。</p>
+
+<h3>解决办法</h3>
+
+<p>办法有点猥琐，要通过 js，去强制 input 元素获得焦点。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">element</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;tap&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">element</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考资料</h3>
+
+<p><a href="http://stackoverflow.com/questions/16149083/keyboardshrinksview-makes-lose-focus">KeyboardShrinksView makes lose focus</a></p>
+
+<p><a href="https://issues.apache.org/jira/browse/CB-6974">Keyboard causes input focus issue</a></p>
+
+<h2>iOS 7.1 input 元素失焦问题</h2>
+
+<h3>bug 演示</h3>
+
+<p><img src="/images/2014-08-06-ios-h5-trap/ios7.1bug.gif" alt="ios7.1bug.gif" /></p>
+
+<h3>bug 分析</h3>
+
+<p>点击 input 元素（input 元素在不在浮层中不重要），弹出键盘时，当点击 Html 中的元素，致使 input 元素失去焦点，键盘收起，position:fixed 元素（演示中的浮层为 position:fixed）会导致界面错乱。</p>
+
+<p>但若点击键盘右上角的 <code>完成</code> 按钮，键盘收起，一切正常。</p>
+
+<p>也就是说，使用 iOS 系统的方式使得键盘收起，没有问题；使用其他方式，使得键盘收起，position:fixed 元素会导致界面错乱。</p>
+
+<p>该 bug，iOS >= 7.1 有问题，&lt; 7.1 无问题。正好与iOS 7.0 input 元素聚焦 bug 的情况相反。</p>
+
+<p><code>注：iOS 键盘的操作，必须由用户的操作引发，想通过 JSBridge 去让键盘收起的方案是行不通的。</code></p>
+
+<h3>解决办法</h3>
+
+<p>避免使用 position:fixed，换成 position:absolute 替代。</p>
+
+<h3>参考资料</h3>
+
+<p><a href="http://stackoverflow.com/questions/18970865/ios-7-input-elements-moving-fixed-positioned-elements">ios-7-input-elements-moving-fixed-positioned-elements</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/02/first-china-joy/">我的第一次China Joy</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-02T15:01:40+08:00" pubdate data-updated="true">Aug 2<span>nd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>昨天，刚好是扒衣见君节，我们一行9人去ChinaJoy。</p>
+
+<p>这是我第一次去CJ，可开心啦！</p>
+
+<h2>出发</h2>
+
+<p>因为要一大早赶去上海，7点的火车，我离得比较近，坐地铁一站路，所以我6：25起床，坐地铁前往城站火车坐火车。</p>
+
+<p>事实证明，我太自信了。</p>
+
+<p>差不多6：50才到城站，因为是第一次坐地铁来城站坐火车，不熟悉地形。下了地铁，就一路小跑，跑进火车站。过了安检，看了火车的候车室，拔腿就跑，因为看到同事在微信里说，是第4站台，过了候车室的检票口，就径直跑去第4站台。结果傻眼了，第4站台没火车，看看其他站台有火车，但是看不到车次，此时已经是6：54。看看不对，立马跑回候车室，问检票员火车在第几站台，被告知在第1站台，拔腿就跑，看看车次是对的，算是松了一口气，再慢慢找车厢……差一点点误点啊……</p>
+
+<h2>抵达</h2>
+
+<p>到了上海，下了高铁，立马转地铁，前往离CJ场馆最近的站。上海的地铁真是方便，四通八达。</p>
+
+<p>出了地铁，天已经下起了雨，还好带了伞。走了几步路，看到路边有CJ的接送车，问了下，居然是免费的，立马好感度倍增。</p>
+
+<p>到了场馆门口，立马感受到了CJ的火爆，虽然天下着雨，但还是人山人海。大家有序地排队，很快就进去了。</p>
+
+<p>场馆占地很大，进入场馆，我们起码又走了3个小场馆，才到了检票口。因为场馆网络的问题，我们买的又是支付宝的二维码票，所以检票也从简了，看一下就进去了。</p>
+
+<h2>看游戏，还是看美女？</h2>
+
+<p>进入展览场馆，立马会对来CJ是看游戏，还是看美女，这个问题产生思考。虽然之前看过报道，现在CJ也称<code>肉展</code>，都是推销美女，顺便推广游戏……今天来此一看，果然如此。</p>
+
+<p>每个展台前，大家都把闪光灯对着美女，对展商推广的游戏视而不见。展商也顺应潮流，请了大把的美女，好多站台都是美女一字排开，才显气势。</p>
+
+<p><img src="/images/2014-08-02-first-china-joy/cj-beauty-1.png" alt="cj-beauty-1" />
+<img src="/images/2014-08-02-first-china-joy/cj-beauty-2.png" alt="cj-beauty-2" />
+<img src="/images/2014-08-02-first-china-joy/cj-beauty-3.png" alt="cj-beauty-3" />
+<img src="/images/2014-08-02-first-china-joy/cj-beauty-4.png" alt="cj-beauty-4" />
+<img src="/images/2014-08-02-first-china-joy/cj-beauty-5.png" alt="cj-beauty-5" />
+<img src="/images/2014-08-02-first-china-joy/cj-beauty-6.png" alt="cj-beauty-6" />
+<img src="/images/2014-08-02-first-china-joy/cj-beauty-7.png" alt="cj-beauty-7" />
+<img src="/images/2014-08-02-first-china-joy/cj-beauty-8.png" alt="cj-beauty-8" /></p>
+
+<h2>CJ的最后希望</h2>
+
+<p>还好，因为微软的XOne和索尼的PS4都要为进入中国市场造势，所以今年都参加了CJ，而且场面很大。还好有了微软和索尼，才能在CJ上看到一点游戏……</p>
+
+<p><img src="/images/2014-08-02-first-china-joy/cj-ms-1.png" alt="cj-ms-1" />
+<img src="/images/2014-08-02-first-china-joy/cj-ms-2.png" alt="cj-ms-2" />
+<img src="/images/2014-08-02-first-china-joy/cj-sony-1.png" alt="cj-sony-1" />
+<img src="/images/2014-08-02-first-china-joy/cj-sony-2.png" alt="cj-sony-2" />
+<img src="/images/2014-08-02-first-china-joy/cj-sony-3.png" alt="cj-sony-3" />
+<img src="/images/2014-08-02-first-china-joy/cj-sony-4.png" alt="cj-sony-4" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/06/views-note/">《#3 Views》 学习笔记</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-06T17:15:53+08:00" pubdate data-updated="true">Jul 6<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>文章地址：<a href="http://objccn.io/issue-3/">objc第三章</a></p>
+
+<h2>绘制像素到屏幕上</h2>
+
+<h2>理解 Scroll Views</h2>
+
+<h3>光栅化和组合</h3>
+
+<p>渲染过程的第一部分是众所周知的光栅化(<code>rasterization</code>)，光栅化简单的说就是产生一组绘图指令并且生成一张图片。</p>
+
+<p>每个视图都有一个 <code>bounds</code> 和 <code>frame</code>。当布局一个界面时，我们需要处理视图的 frame。这允许我们放置并设置视图的大小。视图的 frame 和 bounds 的大小总是一样的，但是他们的 origin 有可能不同。</p>
+
+<p><img src="/images/2014-07-06-views-note/scrollview_1.png" alt="scrollview_1" /></p>
+
+<p>视图图片的左上角会根据它 frame 的 origin 进行偏移，并绘制到父视图的图片上：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">CompositedPosition</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">View</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">Superview</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CompositedPosition</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">View</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">Superview</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>正如之前所说的，如果一个视图 bounds 的 origin 是 {0,0}。那么，我们得到这个公式：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">CompositedPosition</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">View</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CompositedPosition</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">View</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Scroll View的Content Offset</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">CompositedPosition</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">View</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">Superview</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">CompositedPosition</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">View</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">Superview</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们减少 <code>Superview.bounds.origin</code> 的值(因为他们总是0)。但是如果他们不为0呢？我们用和前一个图例相同的 frames，但是我们改变了紫色视图 bounds 的 origin 为 {-30, -30}。得到下图：</p>
+
+<p><img src="/images/2014-07-06-views-note/scrollview_4.png" alt="scrollview_4" /></p>
+
+<p>现在，巧妙的是通过改变这个紫色视图的 bounds，它每一个单独的子视图都被移动了。事实上，这正是 scroll view 工作的原理。当你设置它的 contentOffset 属性时它改变 scroll view.bounds 的 origin。事实上，contentOffset 甚至不是实际存在的。代码看起来像这样：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setContentOffset:</span><span class="p">(</span><span class="n">CGPoint</span><span class="p">)</span><span class="nv">offset</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">CGRect</span> <span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">bounds</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">bounds</span><span class="p">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">offset</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">setBounds:</span><span class="n">bounds</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Content Size</h3>
+
+<p>content size 定义了可滚动区域。</p>
+
+<p>当 content size 设置为比 bounds 大的时候，用户就可以滚动视图了。</p>
+
+<p><img src="/images/2014-07-06-views-note/scrollview_5.png" alt="scrollview_5" /></p>
+
+<h3>用Content Insets对窗口稍作调整</h3>
+
+<p>contentInset 属性可以改变 content offset 的最大和最小值，这样便可以滚动出可滚动区域。</p>
+
+<p>实际使用：</p>
+
+<ul>
+<li>下拉刷新的实现</li>
+</ul>
+
+
+<p><img src="/images/2014-07-06-views-note/scrollview_6.png" alt="scrollview_6" /></p>
+
+<ul>
+<li>键盘出现，不遮挡可视区域</li>
+</ul>
+
+
+<p>当键盘出现在屏幕上时，设置 content inset 的底部等于键盘的高度。</p>
+
+<p><img src="/images/2014-07-06-views-note/scrollview_7.png" alt="scrollview_7" /></p>
+
+<h2>自定义 Collection View 布局</h2>
+
+<h3>布局对象 (Layout Objects)</h3>
+
+<p>UITableView 和 UICollectionView 都是 data-source 和 delegate 驱动的。</p>
+
+<p>布局继承自 UICollectionViewLayout 抽象基类。</p>
+
+<h3>Cells 和其他 Views</h3>
+
+<p>Collection view 的 cell 必须是 UICollectionViewCell 的子类。除了 cell，collection view 额外管理着两种视图：supplementary views 和 decoration views。</p>
+
+<p><code>Supplementary views</code> 相当于 table view 的 section header 和 footer views。像 cells 一样，他们的内容都由数据源对象驱动。然而和 table view 中用法不一样，supplementary view 并不一定会作为 header 或 footer view；他们的数量和放置的位置完全由布局控制。</p>
+
+<p><code>Decoration views</code> 纯粹为一个装饰品。他们完全属于布局对象，并被布局对象管理，他们并不从 data source 获取的 contents。当布局对象指定需要一个 decoration view 的时候，collection view 会自动创建，并将布局对象提供的布局参数应用到上面去。并不需要为自定义视图准备任何内容。</p>
+
+<p>Supplementary views 和 decoration views 必须是 <code>UICollectionResuableView</code> 的子类。</p>
+
+<h3>自定义布局</h3>
+
+<p>一般有两种类型的 collection view 布局：</p>
+
+<ul>
+<li>独立于内容的布局计算</li>
+<li>基于内容的布局计算</li>
+</ul>
+
+
+<h4>collectionViewContentSize</h4>
+
+<p>布局首先要提供的信息就是滚动区域大小，这样 collection view 才能正确的管理滚动。布局对象必须在此时计算它内容的总大小，包括 supplementary views 和 decoration views。</p>
+
+<h4>layoutAttributesForElementsInRect:</h4>
+
+<p>具体实现必须返回一个包含 <code>UICollectionViewLayoutAttributes</code> 对象的数组，为每一个 cell 包含一个这样的对象，supplementary view 或 decoration view 在矩形区域内是可见的。UICollectionViewLayoutAttributes 类包含了 collection view 内 item 的所有相关布局属性。默认情况下，这个类包含 frame，center，size，transform3D，alpha，zIndex 和 hidden属性。</p>
+
+<p>这个方法涉及到所有类型的视图，也就是 cell，supplementary views 和 decoration views。</p>
+
+<p>实现需要做这几步：</p>
+
+<ol>
+<li><p>创建一个空的可变数组来存放所有的布局属性。</p></li>
+<li><p>确定 index paths 中哪些 cells 的 frame 完全或部分位于矩形中。这个计算需要你从 collection view 的数据源中取出你需要显示的数据。然后在循环中调用你实现的 <code>layoutAttributesForItemAtIndexPath:</code> 方法为每个 index path 创建并配置一个合适的布局属性对象，并将每个对象添加到数组中。</p></li>
+<li><p>如果你的布局包含 supplementary views，计算矩形内可见 supplementary view 的 index paths。在循环中调用你实现的 <code>layoutAttributesForSupplementaryViewOfKind:atIndexPath:</code> ，并且将这些对象加到数组中。通过为 kind 参数传递你选择的不同字符，你可以区分出不同种类的supplementary views（比如headers和footers）。当需要创建视图时，collection view 会将 kind 字符传回到你的数据源。记住 supplementary 和 decoration views 的数量和种类完全由布局控制。你不会受到 headers 和 footers 的限制。</p></li>
+<li><p>如果布局包含 decoration views，计算矩形内可见 decoration views 的 index paths。在循环中调用你实现的 layoutAttributesForDecorationViewOfKind:atIndexPath: ，并且将这些对象加到数组中。</p></li>
+<li><p>返回数组。</p></li>
+</ol>
+
+
+<h4>layoutAttributesFor…IndexPath</h4>
+
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>创建布局对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>layoutAttributesForItemAtIndexPath:</td>
+<td>[UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:]</td>
+</tr>
+<tr>
+<td>layoutAttributesForSupplementaryViewOfKind:atIndexPath:</td>
+<td>[UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:withIndexPath:]</td>
+</tr>
+<tr>
+<td>layoutAttributesForDecorationViewOfKind:atIndexPath:</td>
+<td>[UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:withIndexPath:]</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>shouldInvalidateLayoutForBoundsChange</h4>
+
+<p>当 collection view 的 bounds 改变时，布局需要告诉 collection view 是否需要重新计算布局。</p>
+
+<h3>动画</h3>
+
+<h4>插入和删除</h4>
+
+<p>对应实现的方法：</p>
+
+<ul>
+<li>initialLayoutAttributesForAppearingItemAtIndexPath:</li>
+<li>initialLayoutAttributesForAppearingSupplementaryElementOfKind:atIndexPath:</li>
+<li>initialLayoutAttributesForAppearingDecorationElementOfKind:atIndexPath:</li>
+<li>finalLayoutAttributesForDisappearingItemAtIndexPath:</li>
+<li>finalLayoutAttributesForDisappearingSupplementaryElementOfKind:atIndexPath:</li>
+<li>finalLayoutAttributesForDisappearingDecorationElementOfKind:atIndexPath:</li>
+</ul>
+
+
+<h4>布局间切换</h4>
+
+<p>可以通过调用 <code>setCollectionViewLayout:animated:</code> 将一个 collection view 布局动态的切换到另外一个布局。</p>
+
+<h2>自定义控件</h2>
+
+<h3>视图层次概览</h3>
+
+<h4>UIResponder</h4>
+
+<p>UIResponder 是 <code>UIView</code> 的父类。responder 能够处理触摸、手势、远程控制等事件。</p>
+
+<p>UIResponder 的子类有 <code>UIView</code>、<code>UIApplication</code>、<code>UIViewController</code>。</p>
+
+<p>通过重写 UIResponder 的方法，可以决定一个类是否可以成为第一响应者 (first responder)，例如当前输入焦点元素。</p>
+
+<p>UIResponder 允许自定义输入方法，使用 inputAccessoryView 向键盘添加辅助视图；使用 inputView 提供一个完全自定义的键盘。</p>
+
+<h4>UIView</h4>
+
+<p>UIView 子类处理所有跟内容绘制有关的事情以及触摸时间。</p>
+
+<p>一个普遍错误的概念：视图的区域是由它的 frame 定义的。实际上 <code>frame</code> 是一个<code>派生属性</code>，是由 <code>center</code> 和 <code>bounds</code> 合成而来。</p>
+
+<h4>UIControl</h4>
+
+<p>UIControl 建立在视图上，增加了更多的交互支持。</p>
+
+<p>最重要的是，它增加了 target / action 模式。</p>
+
+<h3>渲染</h3>
+
+<p>尽量避免 <code>drawRect:</code>，使用现有的视图构建自定义视图。</p>
+
+<p>通常最快速的渲染方法是使用图片视图。</p>
+
+<p>把可拉伸的图片和图片视图一起使用也可以极大的提高效率。可拉伸图片是这些技术中最快的。原因是可拉伸图片在 CPU 和 GPU 之间的数据转移量最小，并且这些图片的绘制是经过高度优化的。(<code>-[UIImage resizableImageWithCapInsets:resizingMode:]</code>)</p>
+
+<h4>自定义绘制</h4>
+
+<p>技术选择：</p>
+
+<p>图片 > Core Animation > Core Graphics > GLKit 和原生 OpenGL</p>
+
+<p>若重写 <code>drawRect:</code>，确保检查内容模式。默认的模式是将内容缩放以填充视图的范围，这在当视图的 frame 改变时并不会重新绘制。</p>
+
+<h3>自定义交互</h3>
+
+<p>创建自定义控件时所面对的一个普遍的设计问题是向拥有它们的类中回传返回值。可选择的方式有 target action 模式，代理，block 或者 KVO，甚至通知。</p>
+
+<h4>使用 Target-Action</h4>
+
+<p>最方便的做法是使用 target-action。</p>
+
+<p>自定义视图中：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">sendActionsForControlEvents:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>视图控制器中：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setupPieChart</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">pieChart</span> <span class="nl">addTarget:</span><span class="n">self</span>
+</span><span class='line'>                  <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">updateSelection:</span><span class="p">)</span>
+</span><span class='line'>        <span class="nl">forControlEvents:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">updateSelection:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@&quot;</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">pieChart</span><span class="p">.</span><span class="n">selectedSector</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这么做的好处是在自定义视图子类中需要做的事情很少，并且自动获得多目标支持。</p>
+
+<h4>使用代理</h4>
+
+<p>如果你需要更多的控制从视图发送到视图控制器的消息，通常使用代理模式。</p>
+
+<p>自定义视图中：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">delegate</span> <span class="nl">pieChart:</span><span class="n">self</span> <span class="nl">didSelectSector:</span><span class="n">self</span><span class="p">.</span><span class="n">selectedSector</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>视图控制器中:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@interface</span> <span class="nc">MyViewController</span> <span class="o">&lt;</span><span class="n">PieChartDelegate</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'> <span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setupPieChart</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">pieChart</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">pieChart:</span><span class="p">(</span><span class="n">PieChart</span><span class="o">*</span><span class="p">)</span><span class="n">pieChart</span> <span class="nl">didSelectSector:</span><span class="p">(</span><span class="n">PieChartSector</span><span class="o">*</span><span class="p">)</span><span class="n">sector</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 处理区块</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当你想要做更多复杂的工作而不仅仅是通知所有者值发生了变化时，这么做显然更合适。</p>
+
+<h4>使用 Block</h4>
+
+<p>自定义视图中：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@interface</span> <span class="nc">PieChart</span> : <span class="nc">UIControl</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span><span class="n">copy</span><span class="p">)</span> <span class="kt">void</span><span class="p">(</span><span class="o">^</span><span class="n">selectionHandler</span><span class="p">)(</span><span class="n">PieChartSection</span><span class="o">*</span> <span class="n">selectedSection</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Block</code> 的好处是可以把相关的代码整合在视图控制器中:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setupPieChart</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">pieChart</span><span class="p">.</span><span class="n">selectionHandler</span> <span class="o">=</span> <span class="o">^</span><span class="p">(</span><span class="n">PieChartSection</span><span class="o">*</span> <span class="n">section</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// 处理区块</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一旦 block 中的代码要失去控制 (比如 block 中要处理的事情太多，导致 block 中的代码过多)，你还应该将它们抽离成独立的方法，这种情况的话可能用代理会更好一些。</p>
+
+<h4>使用 KVO</h4>
+
+<p>编写代码:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">selectedSegment</span> <span class="o">=</span> <span class="n">theNewSelectedSegment</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当使用合成属性，KVO 会拦截到该变化并发出通知。在视图控制器中，编写类似的代码:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setupPieChart</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">pieChart</span> <span class="nl">addObserver:</span><span class="n">self</span> <span class="nl">forKeyPath:</span><span class="s">@&quot;selectedSegment&quot;</span> <span class="nl">options:</span><span class="mi">0</span> <span class="nl">context:</span><span class="nb">NULL</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">observeValueForKeyPath:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span> <span class="nf">ofObject:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">object</span> <span class="nf">change:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">change</span> <span class="nf">context:</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="nv">context</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">object</span> <span class="o">==</span> <span class="n">self</span><span class="p">.</span><span class="n">pieChart</span> <span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">keyPath</span> <span class="nl">isEqualToString:</span><span class="s">@&quot;selectedSegment&quot;</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// 处理改变</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>使用通知</h4>
+
+<p>视图头文件中：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">extern</span> <span class="n">NSString</span><span class="o">*</span> <span class="k">const</span> <span class="n">SelectedSegmentChangedNotification</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在实现文件中：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span><span class="o">*</span> <span class="k">const</span> <span class="n">SelectedSegmentChangedNotification</span> <span class="o">=</span> <span class="s">@&quot;selectedSegmentChangedNotification&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">notifyAboutChanges</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">postNotificationName:</span><span class="n">SelectedSegmentChangedNotification</span> <span class="nl">object:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在订阅通知，在视图控制器中：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setupPieChart</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">addObserver:</span><span class="n">self</span>
+</span><span class='line'>                                       <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">segmentChanged:</span><span class="p">)</span>
+</span><span class='line'>                                           <span class="nl">name:</span><span class="n">SelectedSegmentChangedNotification</span>
+</span><span class='line'>                                          <span class="nl">object:</span><span class="n">self</span><span class="p">.</span><span class="n">pieChart</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">segmentChanged:</span><span class="p">(</span><span class="n">NSNotification</span><span class="o">*</span><span class="p">)</span><span class="nv">note</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>辅助功能 (Accessibility)</h3>
+
+<p>苹果官方提供的标准 iOS 控件均有辅助功能。这也是推荐用标准控件创建自定义控件的另一个原因。</p>
+
+<h3>本地化</h3>
+
+<p>使用 NSLocalizedString 本地化字符串。</p>
+
+<h3>测试</h3>
+
+<p>使用 <code>UIAutomation</code> 做视图测试。</p>
+
+<h2>先进的自动布局工具箱</h2>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/05/daotachuanqi/">《刀塔传奇》</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-05T00:35:42+08:00" pubdate data-updated="true">Jul 5<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/2014-07-05-daotachuanqi/daotachuanqi.jpg" alt="刀塔传奇" /></p>
+
+<p>接触《刀塔传奇》这款手游一个半月有余，有了一些感受。</p>
+
+<h2>第一印象</h2>
+
+<p>最初知道《刀塔传奇》是通过<code>09</code>的视频推荐，一开始也没想着玩，本来对手游不太感冒，再加上之前也玩过一款刀塔类的手游，感觉非常一般，所以也没第一时间玩。</p>
+
+<p>直到5月15左右，看到<code>情书</code>也推荐了这款手游，也就决定下个玩玩，不玩不知道，一玩就第一时间被吸引住了。</p>
+
+<p>一开始吸引我的主要是：</p>
+
+<ul>
+<li>精美的人设，Q版的人物造型，且与Dota人设非常贴近，装备合成也是，作为Dota爱好者，感觉非常亲切。</li>
+<li>很出彩的战斗系统，指尖大招，运筹帷幄，虽说也是一款卡牌游戏，但是比其他的卡牌游戏有意思多了。</li>
+<li>较为有趣的养成系统，可以对卡牌进行升阶和升星</li>
+</ul>
+
+
+<h2>RMB玩家</h2>
+
+<p>玩的第二天就决定充值了，一下子就进入了RBM玩家的行列，主要是入门门槛非常低，<code>25元的月卡</code> &ndash; 300钻 + 每天领120钻，感觉超值，就立马付款了，还升级到了VIP3，给人的感觉很舒服。</p>
+
+<p>上周日，因为揶揄V10的两次远征（金钱的主要来源，获得英雄卡牌的好途径），再加上每天买6次体力（与升级有关，打装备），钻石渐渐不够了，就一狠心充了钱，累计充值达到1000，达到了V10。</p>
+
+<p>游戏有较强的让人付费的冲动，可是游戏比较成功的地方：</p>
+
+<ul>
+<li>游戏中获得钻石的途径少，数量也少，而钻石是游戏中买体力（体力关系到升级的速度），买英雄灵魂石或抽英雄灵魂石必要的道具</li>
+<li>游戏开始获取的英雄较弱，人们有欲望通过钻石抽奖来获取强力英雄</li>
+<li>充值后，高 VIP 有许多有诱惑力的特权，能大幅拉开玩家间的差距</li>
+</ul>
+
+
+<p>因为我玩的手游不多，没经验，看网上玩家的反映，这游戏还算不错，消费不算高，特别是25的月卡，入门门槛很低。</p>
+
+<h2>养成游戏</h2>
+
+<p>玩了一段时间，对游戏有点感觉了，也有点心得，感觉卡牌类游戏，归根结底，还是养成类游戏。在《刀塔传奇》游戏中，卡牌升级有两个纬度：</p>
+
+<ul>
+<li>卡牌颜色，按照 白 &ndash;> 黄 &ndash;> 蓝 &ndash;> 紫 &ndash;> 橙 进阶。需要升级卡片等级，穿必须装备，进行升级。这个升阶相对星级，较为容易，只有少数装备比较难刷。</li>
+<li>卡牌星级，从一星到五星升级，需要收集对应英雄的灵魂石碎片来升级。一星到五星分别需要，10，20、50、100、150个灵魂石，共330个灵魂石。这个比较难，超级耗时间。假设每天拿到1个灵魂石，那就需要330天，才能把英雄从一星练到五星，也就是说需要一年啊。</li>
+</ul>
+
+
+<p>个人比较喜欢养成类游戏，总体玩得还算开心。</p>
+
+<p>想起小时候玩《口袋妖怪》，养成类游戏的标志性游戏，现在想想蛮无聊的，就是收集小精灵，但小时候就是玩得不亦乐乎。</p>
+
+<h2>人性分析</h2>
+
+<p>很喜欢最近微博上对产品的人性分析论，我也试着用这理论，分析下《刀塔传奇》。</p>
+
+<ul>
+<li>傲慢
+
+<ul>
+<li></li>
+</ul>
+</li>
+<li>窥视
+
+<ul>
+<li></li>
+</ul>
+</li>
+<li>色欲
+
+<ul>
+<li>漂亮的人设，优秀的美工。看Logo，小冰冰超出边框的波波就可见一斑</li>
+</ul>
+</li>
+<li>懒惰
+
+<ul>
+<li>扫荡，略过战斗动画，快速获取装备</li>
+<li>金币抽奖，一定几率获得装备和灵魂石</li>
+<li>钻石抽奖，较高几率获得装备和灵魂石</li>
+<li>神秘魂匣，较高几率灵魂石</li>
+<li>一键附魔</li>
+</ul>
+</li>
+<li>贪婪
+
+<ul>
+<li>V5，藏宝地穴可以占领4座宝藏</li>
+<li>V10，开启两次远征</li>
+<li>V11，开启神秘魂匣</li>
+</ul>
+</li>
+<li>虚荣
+
+<ul>
+<li>VIP头像边框</li>
+<li>竞技场全服务器排名</li>
+<li>卡牌等级、星阶</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>不满</h2>
+
+<p>在游戏中，最不满的就是游戏运营商<code>龙图游戏</code>脑残的运营。</p>
+
+<p>比如最近的两次活动：</p>
+
+<ul>
+<li>给回归刀塔的玩家（弃坑的），较高额度的金币与钻石赠送，但是却对一直进行游戏的忠实玩家视而不见，一点表示都没有，不患寡而患不均，这个道理运营商不懂么?</li>
+<li>世界杯决赛周，游戏公测月的<code>豪礼</code>，只需一周，每天登录只有区区50的钻石……太抠门了吧</li>
+</ul>
+
+
+<p>如果我放弃游戏，八成是被游戏脑残的运营给气的！</p>
+
+<p>还有一些不爽的地方，针对现在iOS 1.9.6版本：</p>
+
+<ul>
+<li>坑爹的帐号体系，iOS与android的帐号不互通，在iPhone手机上玩的帐号，在android手机上不能登录……</li>
+<li>PVP系统薄弱，目前唯一的PVP系统 &ndash; 竞技场，只能进行自动战斗，缺少了一定的可操作性</li>
+<li>奇怪的开服策略，目前开服务器非常快，我是App76区的，现在已经开到了125区……因为游戏中的竞技场系统和工会系统，老服务器的新玩家很难立足，所以，大多新玩家都回去新服务器玩；如果玩家想新开帐号，也会优先选择新服务器，这就导致老服务器端人越来越少，工会招不到人，交流的乐趣少了，也容易让人放弃，这是种恶性循环。</li>
+</ul>
+
+
+<h2>结语</h2>
+
+<p>玩了一个半月，总体感觉还不错，我相信我还是会继续玩下去的，希望游戏越做越好，越来越好玩。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/25/arc-note/">ARC学习笔记</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-25T00:50:28+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>ARC执行新规则</h2>
+
+<ul>
+<li>开发者不能显示调用 <code>dealloc</code>；不能实现和调用 retain、release、retainCount 和 autorelease。</li>
+<li>不能使用 NSAllocateObject 或者 NSDeallocateObject 。开发者创建对象使用alloc，运行时环境负责销毁对象。</li>
+<li>在 C 数据结构中，不能使用对象指针。可以使用 OC 类来代替 C 的 struct。</li>
+<li>id 和 void * 没有自动转换。</li>
+<li>开发者不能使用 NSAutoreleasePool 对象。ARC 下使用 @autoreleasepool，它比 NSAtuoreleasePool 更有效率。</li>
+<li>开发者不能使用内存zones。不用再使用 NSZone 了。</li>
+</ul>
+
+
+<p>为了配合手动引用计数，ARC 的方法命名有限制：
+* 访问器方法不能以 new 开头，开发者不能声明一个以 new 开头的属性，除非你给你指定一个getter：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// Won&#39;t work:</span>
+</span><span class='line'><span class="k">@property</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">newTitle</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Works:</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">getter</span><span class="o">=</span><span class="n">theNewTitle</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">newTitle</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ARC引入新的生命周期修饰符</h2>
+
+<h3>变量修饰符</h3>
+
+<ul>
+<li><code>__strong</code> 是默认的，只要对象还有强引用，他就一直存在。</li>
+<li><code>__weak</code> 指向一个不会保持被引用对象一直存在的引用。当没有强引用指向它，弱引用将被设置为 nil。</li>
+<li><code>__unsafe_unretained</code> 指向一个不会保持被引用对象一直存在的引用，它<code>不会</code>被设置为 nil，当没有强引用指向它。如果它引用的对象被释放，指针会变成野指针。</li>
+<li><code>__autoreleasing</code> 用于标识id *的引用参数，并且在返回的时候自动释放。</li>
+</ul>
+
+
+<h3>使用生命周期修饰符，避免循环引用</h3>
+
+<p>在MRC下，<code>__block id x;</code>这样的写法，不会对x进行retain。</p>
+
+<p>在ARC下，<code>__block id x;</code>默认retain x（就像其他变量一样）。</p>
+
+<p>如果想在ARC模式下，得到手动引用计数的效果，开发者可以使用<code>__unsafe_unretained __block id x;</code>。顾名思义，<code>__unsafe_unretained是危险的</code>(因为他可能导致野指针)，因此也不建议使用。<code>好的解决方案是：使用__weak或者将__block的值设置为nil，来打断retain循环</code>。</p>
+
+<ul>
+<li>使用 <code>__block</code> ，然后设置为 <code>nil</code>：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">MyViewController</span> <span class="o">*</span> <span class="n">__block</span> <span class="n">myController</span> <span class="o">=</span> <span class="p">[[</span><span class="n">MyViewController</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="err">…</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ...</span>
+</span><span class='line'><span class="n">myController</span><span class="p">.</span><span class="n">completionHandler</span> <span class="o">=</span>  <span class="o">^</span><span class="p">(</span><span class="n">NSInteger</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">myController</span> <span class="nl">dismissViewControllerAnimated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">myController</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>使用 <code>__weak</code> 修饰符 ：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">MyViewController</span> <span class="o">*</span><span class="n">myController</span> <span class="o">=</span> <span class="p">[[</span><span class="n">MyViewController</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="err">…</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ...</span>
+</span><span class='line'><span class="n">MyViewController</span> <span class="o">*</span> <span class="n">__weak</span> <span class="n">weakMyViewController</span> <span class="o">=</span> <span class="n">myController</span><span class="p">;</span>
+</span><span class='line'><span class="n">myController</span><span class="p">.</span><span class="n">completionHandler</span> <span class="o">=</span>  <span class="o">^</span><span class="p">(</span><span class="n">NSInteger</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">weakMyViewController</span> <span class="nl">dismissViewControllerAnimated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>对于复杂场景：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">MyViewController</span> <span class="o">*</span><span class="n">myController</span> <span class="o">=</span> <span class="p">[[</span><span class="n">MyViewController</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="err">…</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ...</span>
+</span><span class='line'><span class="n">MyViewController</span> <span class="o">*</span> <span class="n">__weak</span> <span class="n">weakMyController</span> <span class="o">=</span> <span class="n">myController</span><span class="p">;</span>
+</span><span class='line'><span class="n">myController</span><span class="p">.</span><span class="n">completionHandler</span> <span class="o">=</span>  <span class="o">^</span><span class="p">(</span><span class="n">NSInteger</span> <span class="n">result</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">MyViewController</span> <span class="o">*</span><span class="n">strongMyController</span> <span class="o">=</span> <span class="n">weakMyController</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">strongMyController</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// ...</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">strongMyController</span> <span class="nl">dismissViewControllerAnimated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>        <span class="c1">// ...</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Probably nothing...</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>相关资料</h2>
+
+<p><a href="https://developer.apple.com/library/mac/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html">Transitioning to ARC Release Notes</a></p>
+
+<p><a href="http://www.cocoachina.com/applenews/devnews/2013/1209/7497.html">转向ARC的说明</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/12/concurrent-programming-note/">《#2 并发编程》 学习笔记</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-12T12:49:46+08:00" pubdate data-updated="true">Jun 12<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>文章地址：<a href="http://objccn.io/issue-2/">objc第二章</a></p>
+
+<h2>并发编程：API 及挑战</h2>
+
+<h3>OS X 和 iOS 中的并发编程</h3>
+
+<h4>Grand Central Dispatch(GCD)</h4>
+
+<p>GCD 在后端管理着一个线程池，可以将开发者从线程管理的工作中解放出来，通过集中的管理线程，来缓解大量线程被创建的问题。在日常开发中，最好使用 GCD 来做线程方面的工作。</p>
+
+<p>GCD 公开有 5 个不同的队列：运行在主线程中的 main queue，3 个不同优先级的后台队列，以及一个优先级更低的后台队列（用于 I/O）</p>
+
+<p>使用不同优先级的若干个队列乍听起来非常直接，不过，我们强烈建议，<code>在绝大多数情况下使用默认的优先级队列就可以了</code>。</p>
+
+<p><img src="http://img.objccn.io/issue-2/gcd-queues.png" alt="http://img.objccn.io/issue-2/gcd-queues.png" /></p>
+
+<h4>Operation Queues</h4>
+
+<p>操作队列（operation queue）是由 GCD 提供的一个队列模型的 Cocoa 抽象。GCD 提供了更加底层的控制，而操作队列则在 GCD 之上实现了一些方便的功能，这些功能对于 app 的开发者来说通常是最好最安全的选择。</p>
+
+<p><code>NSOperationQueue</code> 有两种不同类型的队列：主队列和自定义队列。主队列运行在主线程之上，而自定义队列在后台执行。在两种类型中，这些队列所处理的任务都使用 <code>NSOperation</code> 的子类来表述。</p>
+
+<h4>Run Loops</h4>
+
+<p>Run loop并不像 GCD 或者操作队列那样是一种并发机制，因为它并不能并行执行任务。不过在主 dispatch/operation 队列中， run loop 将直接配合任务的执行，它提供了一种异步执行代码的机制。</p>
+
+<p>Run loop 比起操作队列或者 GCD 来说容易使用得多，因为通过 run loop ，你不必处理并发中的复杂情况，就能异步地执行任务。</p>
+
+<h3>并发编程中面临的挑战</h3>
+
+<h4>资源共享</h4>
+
+<p>并发编程中许多问题的根源就是在多线程中访问共享资源。</p>
+
+<p>在多线程中任何一个共享的资源都可能是一个潜在的冲突点，你必须精心设计以防止这种冲突的发生。</p>
+
+<p>为了防止出现这样的问题，多线程需要一种互斥的机制来访问共享资源。</p>
+
+<h4>互斥锁</h4>
+
+<p>互斥访问的意思就是同一时刻，只允许一个线程访问某个特定资源。</p>
+
+<p>从语言层面来说，在 Objective-C 中将属性以 atomic 的形式来声明，就能支持互斥锁了。事实上在默认情况下，属性就是 atomic 的。将一个属性声明为 atomic 表示每次访问该属性都会进行隐式的加锁和解锁操作。虽然最把稳的做法就是将所有的属性都声明为 atomic，但是加解锁这也会付出一定的代价。</p>
+
+<h4>死锁</h4>
+
+<p>互斥锁解决了竞态条件的问题，但很不幸同时这也引入了一些其他问题，其中一个就是死锁。当多个线程在相互等待着对方的结束时，就会发生死锁，这时程序可能会被卡住。</p>
+
+<h4>资源饥饿（Starvation）</h4>
+
+<p>大多数情况下，限制资源一次只能有一个线程进行读取访问其实是非常浪费的。因此，在资源上没有写入锁的时候，持有一个读取锁是被允许的。这种情况下，如果一个持有读取锁的线程在等待获取写入锁的时候，其他希望读取资源的线程则因为无法获得这个读取锁而导致资源饥饿的发生。</p>
+
+<h4>优先级反转</h4>
+
+<p>优先级反转是指程序在运行时低优先级的任务阻塞了高优先级的任务，有效的反转了任务的优先级。</p>
+
+<p>解决这个问题的方法，通常就是不要使用不同的优先级。通常最后你都会以让高优先级的代码等待低优先级的代码来解决问题。<code>当你使用 GCD 时，总是使用默认的优先级队列（直接使用，或者作为目标队列）</code>。如果你使用不同的优先级，很可能实际情况会让事情变得更糟糕。</p>
+
+<h3>总结</h3>
+
+<p>建议采纳的安全模式：从主线程中提取出要使用到的数据，并利用一个操作队列在后台处理相关的数据，最后回到主队列中来发送你在后台队列中得到的结果。使用这种方式，你不需要自己做任何锁操作，这也就大大减少了犯错误的几率。</p>
+
+<h2>常见的后台实践</h2>
+
+<h3>操作队列 (Operation Queues) 还是 GCD ?</h3>
+
+<p><code>GCD 是基于 C 的底层的 API ，而操作队列则是 GCD 实现的 Objective-C API。</code></p>
+
+<p><code>操作队列可以取消在任务处理队列中的任务</code>，而在 GCD 中不容易实现。</p>
+
+<h4>后台的 Core Data</h4>
+
+<p><code>Core Data</code>不熟悉</p>
+
+<h3>后台 UI 代码</h3>
+
+<p><code>UIKit 只能在主线程上运行。</code>而那部分不与 UIKit 直接相关，却会消耗大量时间的 UI 代码可以被移动到后台去处理。</p>
+
+<h3>异步网络请求处理</h3>
+
+<ul>
+<li>所有网络请求都应该采取异步的方式完成。</li>
+<li>可以使用 <code>NSURLConnection</code> 的异步方法，并且把所有操作转化为 operation 来执行。通过这种方法，我们可以从操作队列的强大功能和便利中获益良多：我们能轻易地控制并发操作的数量，添加依赖，以及取消操作。</li>
+<li>使用像 <a href="http://afnetworking.com/">AFNetworking</a> 这样的框架：建立一个独立的线程，为建立的线程设置自己的 run loop，然后在其中调度 URL 连接。但是并不推荐你自己去实现这些事情。</li>
+</ul>
+
+
+<h3>进阶：后台文件 I/O</h3>
+
+<p>大体上逐行读取一个文件的模式是这样的：</p>
+
+<ol>
+<li>建立一个中间缓冲层以提供，当没有找到换行符号的时候可以向其中添加数据</li>
+<li>从 stream 中读取一块数据</li>
+<li>对于这块数据中发现的每一个换行符，取中间缓冲层，向其中添加数据，直到（并包括）这个换行符，并将其输出</li>
+<li>将剩余的字节添加到中间缓冲层去</li>
+<li>回到 2，直到 stream 关闭</li>
+</ol>
+
+
+<h3>总结</h3>
+
+<p>在主队列中接收事件或者数据，然后用后台操作队列来执行实际操作，然后回到主队列去传递结果，遵循这样的原则来编写尽量简单的并行代码，将是保证高效正确的不二法则。</p>
+
+<h2>底层并发 API</h2>
+
+<h3>dispatch_once</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="nf">boringColor</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="n">UIColor</span> <span class="o">*</span><span class="n">color</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">static</span> <span class="n">dispatch_once_t</span> <span class="n">onceToken</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">dispatch_once</span><span class="p">(</span><span class="o">&amp;</span><span class="n">onceToken</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+</span><span class='line'>        <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithRed:</span><span class="mf">0.380f</span> <span class="nl">green:</span><span class="mf">0.376f</span> <span class="nl">blue:</span><span class="mf">0.376f</span> <span class="nl">alpha:</span><span class="mf">1.000f</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">color</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的 block 只会运行一次。并且在连续的调用中，这种检查是很高效的。你能使用它来初始化全局数据比如单例。要注意的是，使用 <code>dispatch_once_t</code> 会使得测试变得非常困难（单例和测试不是很好配合）。</p>
+
+<p><code>要确保 onceToken 被声明为 static ，或者有全局作用域。任何其他的情况都会导致无法预知的行为。</code></p>
+
+<h3>dispatch_after</h3>
+
+<p>它使工作延后执行。它是很强大的，但是要注意：你很容易就陷入到一堆麻烦中。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">foo</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">delayInSeconds</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">dispatch_time_t</span> <span class="n">popTime</span> <span class="o">=</span> <span class="n">dispatch_time</span><span class="p">(</span><span class="n">DISPATCH_TIME_NOW</span><span class="p">,</span> <span class="p">(</span><span class="n">int64_t</span><span class="p">)</span> <span class="p">(</span><span class="n">delayInSeconds</span> <span class="o">*</span> <span class="n">NSEC_PER_SEC</span><span class="p">));</span>
+</span><span class='line'>    <span class="n">dispatch_after</span><span class="p">(</span><span class="n">popTime</span><span class="p">,</span> <span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="n">bar</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里存在一些缺点。我们<code>不能（直接）取消我们已经提交到 dispatch_after 的代码，它将会运行</code>。</p>
+
+<p>如果你需要一些事情在某个特定的时刻运行，那么 <code>dispatch_after</code> 或许会是个好的选择。确保同时考虑了 <code>NSTimer</code>，这个API虽然有点笨重，但是它<code>允许你取消定时器的触发</code>。</p>
+
+<h3>队列</h3>
+
+<p>GCD 中一个基本的代码块就是队列。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">init</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">!=</span> <span class="nb">nil</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">NSString</span> <span class="o">*</span><span class="n">label</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;%@.isolation.%p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">self</span> <span class="n">class</span><span class="p">],</span> <span class="n">self</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">isolationQueue</span> <span class="o">=</span> <span class="n">dispatch_queue_create</span><span class="p">([</span><span class="n">label</span> <span class="n">UTF8String</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">label</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;%@.work.%p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">self</span> <span class="n">class</span><span class="p">],</span> <span class="n">self</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">workQueue</span> <span class="o">=</span> <span class="n">dispatch_queue_create</span><span class="p">([</span><span class="n">label</span> <span class="n">UTF8String</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>队列可以是并行也可以是串行的，也可以是并行的。默认情况下，是串行的。</p>
+
+<p>GCD 队列的内部使用的是线程。</p>
+
+<h4>目标队列</h4>
+
+<p>你能够为你创建的任何一个队列设置一个目标队列。</p>
+
+<p>为一个类创建它自己的队列而不是使用全局的队列被普遍认为是一种好的风格。这种方式下，你可以设置队列的名字，这让调试变得轻松许多—— Xcode 可以让你在 Debug Navigator 中看到所有的队列名字，如果你直接使用 lldb。(lldb) thread list 命令将会在控制台打印出所有队列的名字。一旦你使用大量的异步内容，这会是非常有用的帮助。</p>
+
+<h3>隔离</h3>
+
+<h4>资源保护</h4>
+
+<p>多线程编程中，最常见的情形是你有一个资源，每次只有一个线程被允许访问这个资源。</p>
+
+<h4>全都使用异步分发</h4>
+
+<h4>如何写出好的异步 API</h4>
+
+<p>如果你的方法或函数有一个返回值，异步地将其传递给一个回调处理程序。这个 API 应该是这样的，你的方法或函数同时持有一个结果 block 和一个将结果传递过去的队列。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">processImage:</span><span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">image</span> <span class="nf">completionHandler:</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">BOOL</span> <span class="n">success</span><span class="p">))</span><span class="nv">handler</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">dispatch_async</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">isolationQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
+</span><span class='line'>        <span class="c1">// do actual processing here</span>
+</span><span class='line'>        <span class="n">dispatch_async</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">resultQueue</span><span class="p">,</span> <span class="o">^</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
+</span><span class='line'>            <span class="n">handler</span><span class="p">(</span><span class="n">YES</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>迭代执行</h3>
+
+<p>dispatch_apply</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">;</span> <span class="o">++</span><span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">width</span><span class="p">;</span> <span class="o">++</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Do something with x and y here</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>小小的改动或许就可以让它运行的更快：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">dispatch_apply</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">dispatch_get_global_queue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="o">^</span><span class="p">(</span><span class="n">size_t</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">width</span><span class="p">;</span> <span class="n">x</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Do something with x and y here</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>组</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">dispatch_group_t</span> <span class="n">group</span> <span class="o">=</span> <span class="n">dispatch_group_create</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">dispatch_queue_t</span> <span class="n">queue</span> <span class="o">=</span> <span class="n">dispatch_get_global_queue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="n">dispatch_group_async</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="o">^</span><span class="p">(){</span>
+</span><span class='line'>    <span class="c1">// Do something that takes a while</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="n">doSomeFoo</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">dispatch_group_async</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">(){</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">foo</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="n">dispatch_group_async</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="o">^</span><span class="p">(){</span>
+</span><span class='line'>    <span class="c1">// Do something else that takes a while</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="n">doSomeBar</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">dispatch_group_async</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">(){</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">bar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// This block will run once everything above is done:</span>
+</span><span class='line'><span class="n">dispatch_group_notify</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">(){</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;foo: %d&quot;</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;bar: %d&quot;</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">bar</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>对现有API使用 dispatch_group_t</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">withGroup:</span><span class="p">(</span><span class="n">dispatch_group_t</span><span class="p">)</span><span class="nv">group</span>
+</span><span class='line'>        <span class="nf">sendAsynchronousRequest:</span><span class="p">(</span><span class="n">NSURLRequest</span> <span class="o">*</span><span class="p">)</span><span class="nv">request</span>
+</span><span class='line'>        <span class="nf">queue:</span><span class="p">(</span><span class="n">NSOperationQueue</span> <span class="o">*</span><span class="p">)</span><span class="nv">queue</span>
+</span><span class='line'>        <span class="nf">completionHandler:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSURLResponse</span><span class="o">*</span><span class="p">,</span> <span class="n">NSData</span><span class="o">*</span><span class="p">,</span> <span class="n">NSError</span><span class="o">*</span><span class="p">))</span><span class="nv">handler</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">group</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">sendAsynchronousRequest:</span><span class="n">request</span>
+</span><span class='line'>                                <span class="nl">queue:</span><span class="n">queue</span>
+</span><span class='line'>                    <span class="nl">completionHandler:</span><span class="n">handler</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">dispatch_group_enter</span><span class="p">(</span><span class="n">group</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">sendAsynchronousRequest:</span><span class="n">request</span>
+</span><span class='line'>                                <span class="nl">queue:</span><span class="n">queue</span>
+</span><span class='line'>                    <span class="nl">completionHandler:</span><span class="o">^</span><span class="p">(</span><span class="n">NSURLResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">,</span> <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">){</span>
+</span><span class='line'>            <span class="n">handler</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">dispatch_group_leave</span><span class="p">(</span><span class="n">group</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>为了能正常工作，你需要确保:
+* dispatch_group_enter() 必须要在 dispatch_group_leave()之前运行。
+* dispatch_group_enter() 和 dispatch_group_leave() 一直是成对出现的。</p>
+
+<h3>事件源</h3>
+
+<p>GCD 有一个较少人知道的特性：事件源 <code>dispatch_source_t</code>。</p>
+
+<p>当你需要用到它时，它会变得极其有用。它的一些使用是秘传招数，我们将会接触到一部分的使用。但是大部分事件源在 iOS 平台不是很有用，因为在 iOS 平台有诸多限制，你无法启动进程（因此就没有必要监视进程），也不能在你的 app bundle 之外写数据（因此也就没有必要去监视文件）等等。</p>
+
+<p>GCD 事件源是以极其资源高效的方式实现的。</p>
+
+<h4>监视进程</h4>
+
+<h4>监视文件</h4>
+
+<h4>定时器</h4>
+
+<h4>取消</h4>
+
+<h3>输入输出</h3>
+
+<p>写出能够在繁重的 I/O 处理情况下运行良好的代码是一件非常棘手的事情。</p>
+
+<h4>GCD 和缓冲区</h4>
+
+<p>最直接了当的方法是使用数据缓冲区。GCD 有一个 <code>dispatch_data_t</code> 类型，在某种程度上和 Objective-C 的 NSData 类型很相似。但是它能做别的事情，而且更通用。</p>
+
+<h4>读和写</h4>
+
+<p>在 GCD 的核心里，调度 I/O（译注：原文为 Dispatch I/O） 与所谓的通道有关。调度 I/O 通道提供了一种与从文件描述符中读写不同的方式。</p>
+
+<h3>基准测试</h3>
+
+<p>能够测量给定的代码执行的平均的纳秒数。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">uint64_t</span> <span class="nf">dispatch_benchmark</span><span class="p">(</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="n">block</span><span class="p">)(</span><span class="kt">void</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>原子操作</h3>
+
+<p>头文件 <code>libkern/OSAtomic.h</code> 里有许多强大的函数，专门用来底层多线程编程。尽管它是内核头文件的一部分，它也能够在内核之外来帮助编程。</p>
+
+<h4>计数器</h4>
+
+<h4>原子队列</h4>
+
+<h4>自旋锁</h4>
+
+<p>OSAtomic.h 头文件定义了使用自旋锁的函数：OSSpinLock。</p>
+
+<h2>线程安全类的设计</h2>
+
+<h3>线程安全</h3>
+
+<h4>Apple 的框架</h4>
+
+<p>一般来说除非特别声明，大多数的类默认都<code>不是</code>线程安全的。</p>
+
+<p>Apple没有把 UIKit 设计为线程安全的类是有意为之的，将其打造为线程安全的话会使很多操作变慢。而事实上 UIKit 是和主线程绑定的，这一特点使得编写并发程序以及使用 UIKit 十分容易的，你唯一需要确保的就是对于 UIKit 的调用总是在主线程中来进行。</p>
+
+<h4>为什么 UIKit 不是线程安全的？</h4>
+
+<p>对于一个像 UIKit 这样的大型框架，确保它的线程安全将会带来巨大的工作量和成本。</p>
+
+<h4>内存回收 (deallocation) 问题</h4>
+
+<p>另一个在后台使用 UIKit 对象的的危险之处在于“内存回收问题”。</p>
+
+<h4>Collection 类</h4>
+
+<p>总的来说，比如 <code>NSArry 这样不可变类是线程安全的</code>。然而它们的可变版本，比如 <code>NSMutableArray 是线程不安全的</code>。</p>
+
+<p>一个好习惯是写类似于 <code>return [array copy]</code> 这样的代码来确保返回的对象事实上是不可变对象。</p>
+
+<h4>原子属性 (Atomic Properties)</h4>
+
+<h5>为何不用 @synchronized ？</h5>
+
+<p><code>@synchonized(self)</code> 更适合使用在你需要确保在发生错误时代码不会死锁，而是抛出异常的时候。</p>
+
+<h4>你自己的类</h4>
+
+<p>单独使用原子属性并不会使你的类变成线程安全。它不能保护你应用的逻辑，只能保护你免于在 setter 中遭遇到竞态条件的困扰。</p>
+
+<p>一个简单的解决办法是使用 <code>@synchronize</code>。其他的方式都非常非常可能使你误入歧途，已经有太多聪明人在这种尝试上一次又一次地以失败告终。</p>
+
+<h5>可行的线程安全设计</h5>
+
+<p>对于那些肯定应该线程安全的代码（一个好例子是负责缓存的类）来说，一个不错的设计是使用并发的 dispatch_queue 作为读/写锁，并且确保只锁着那些真的需要被锁住的部分，以此来最大化性能。</p>
+
+<h3>GCD 的陷阱</h3>
+
+<p>对于大多数上锁的需求来说，GCD 就足够好了。它简单迅速，并且基于 block 的 API 使得粗心大意造成非平衡锁操作的概率下降了不少。</p>
+
+<h4>将 GCD 当作递归锁使用</h4>
+
+<p>GCD 是一个对共享资源的访问进行串行化的队列。这个特性可以被当作锁来使用，但实际上它和 @synchronized 有很大区别。</p>
+
+<h4>用 dispatch_async 修复时序问题</h4>
+
+<h4>在性能关键的代码中混用 dispatchsync 和 dispatchasync</h4>
+
+<h4>使用 dispatch_async 来派发内存敏感的操作</h4>
+
+<h2>测试并发程序</h2>
+
+<p>以 SenTestingKit 为例子，在XCode5中已经不再使用。</p>
+
+<p><a href="http://www.cnblogs.com/yjg2014/p/yjg.html">http://www.cnblogs.com/yjg2014/p/yjg.html</a></p>
+
+<p><a href="http://m.blog.csdn.net/blog/againbike/11870459">http://m.blog.csdn.net/blog/againbike/11870459</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/11/lighter-view-controllers-note/">《#1 更轻量的 View Controllers》 学习笔记</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-11T12:01:53+08:00" pubdate data-updated="true">Jun 11<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>文章地址：<a href="http://objccn.io/issue-1/">objc第一章</a></p>
+
+<h2>更轻量的 View Controllers</h2>
+
+<ul>
+<li>针对<code>UITableViewController</code>等VC，可以把对应的<code>UITableViewDataSource</code>、<code>UITableViewDelegate</code>等<code>Protocol</code>代码，写成单独的类，再设置给VC的dataSource或deletege</li>
+<li>将业务逻辑、网络请求逻辑移到 Model 中</li>
+</ul>
+
+
+<h2>整洁的 Table View 代码</h2>
+
+<h3>添加Child View Controllers的步骤</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">ChildViewController</span> <span class="o">*</span><span class="n">childVC</span> <span class="o">=</span> <span class="p">[[</span><span class="n">ChildViewController</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">addChildViewController:</span><span class="n">childVC</span><span class="p">];</span>
+</span><span class='line'><span class="n">CGRect</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span>span class="n">bounds</span><span class="p">;</span>
+</span><span class='line'><span class="n">childVC</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span><span class="p">;</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview:</span><span class="n">childVC</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">childVC</span> <span class="nl">didMoveToParentViewController:</span><span class="n">self</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>移除Child View Controllers的步骤</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">childVC</span> <span class="nl">willMoveToParentViewController:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">childVC</span><span class="p">.</span><span class="n">view</span> <span class="n">removeFromSuperview</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">childVC</span> <span class="n">removeFromParentViewController</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>源自：<a href="http://geeklu.com/2014/05/custom-container-view-controller/">Custom Container View Controller</a></p>
+
+<h3>分离关注点（Separating Concerns）</h3>
+
+<p>这块最好对照看下文章的代码实践：<a href="http://objccn.io/issue-1-2/">http://objccn.io/issue-1-2/</a></p>
+
+<h2>测试 View Controllers</h2>
+
+<h2>View Controller 容器</h2>
+
+<h3>过场动画 &ndash; 新老VC替换</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">toController</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">fromController</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">bounds</span><span class="p">;</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">addChildViewController:</span><span class="n">toController</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">fromController</span> <span class="nl">willMoveToParentViewController:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">transitionFromViewController:</span><span class="n">fromController</span>
+</span><span class='line'>                  <span class="nl">toViewController:</span><span class="n">toController</span>
+</span><span class='line'>                          <span class="nl">duration:</span><span class="mf">0.2</span>
+</span><span class='line'>                           <span class="nl">options:</span><span class="n">direction</span> <span class="o">|</span> <span class="n">UIViewAnimationOptionCurveEaseIn</span>
+</span><span class='line'>                        <span class="nl">animations:</span><span class="nb">nil</span>
+</span><span class='line'>                        <span class="nl">completion:</span><span class="o">^</span><span class="p">(</span><span class="kt">BOOL</span> <span class="n">finished</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                            <span class="p">[</span><span class="n">toController</span> <span class="nl">didMoveToParentViewController:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'>                            <span class="p">[</span><span class="n">fromController</span> <span class="n">removeFromParentViewController</span><span class="p">];</span>
+</span><span class='line'>                        <span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>代码学习：</h2>
+
+<p>代码地址：<a href="https://github.com/objcio/issue-1-lighter-view-controllers">https://github.com/objcio/issue-1-lighter-view-controllers</a></p>
+
+<h3>反序列化</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSData</span> <span class="nl">dataWithContentsOfURL:</span><span class="n">archiveURL</span> <span class="nl">options:</span><span class="mi">0</span> <span class="nl">error:</span><span class="nb">NULL</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSKeyedUnarchiver</span> <span class="o">*</span><span class="n">unarchiver</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSKeyedUnarchiver</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initForReadingWithData:</span><span class="n">data</span><span class="p">];</span>
+</span><span class='line'><span class="n">_users</span> <span class="o">=</span> <span class="p">[</span><span class="n">unarchiver</span> <span class="nl">decodeObjectOfClass:</span><span class="p">[</span><span class="n">NSArray</span> <span class="n">class</span><span class="p">]</span> <span class="nl">forKey:</span><span class="s">@&quot;users&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">_photos</span> <span class="o">=</span> <span class="p">[</span><span class="n">unarchiver</span> <span class="nl">decodeObjectOfClass:</span><span class="p">[</span><span class="n">NSArray</span> <span class="n">class</span><span class="p">]</span> <span class="nl">forKey:</span><span class="s">@&quot;photos&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">unarchiver</span> <span class="n">finishDecoding</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://stackoverflow.com/questions/17301769/when-to-use-nssecurecoding">When to use NSSecureCoding</a></p>
+
+<p><a href="http://nshipster.com/nssecurecoding/">NSSecure​Coding</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/06/01/phonegap-ios/">iOS版PhoneGap原理分析</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-01T00:59:15+08:00" pubdate data-updated="true">Jun 1<span>st</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>PhoneGap，著名的跨平台Hybrid框架，旨在让开发者使用HTML、Javascript、CSS开发跨平台的App。</p>
+
+<p>最近的工作，就是做Hybrid方面的，很自然，方案就从PhoneGap入手。</p>
+
+<p>下面就切入正题，分析下PhoneGap的原理，需要说明的是，我只针对iOS版本的PhoneGap做分析，android版本的原理大同小异。</p>
+
+<h2>安装PhoneGap</h2>
+
+<p>现在使用PhoneGap非常方便，只需要安装node，用简单的命令就能完成安装和使用的工作。</p>
+
+<p>安装PhoneGap:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">sudo</span> <span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">phonegap</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>创建phoneGap应用:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">phonegap</span> <span class="n">create</span> <span class="n">my</span><span class="o">-</span><span class="n">app</span>
+</span><span class='line'><span class="n">cd</span> <span class="n">my</span><span class="o">-</span><span class="n">app</span>
+</span><span class='line'><span class="n">phonegap</span> <span class="n">run</span> <span class="n">ios</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>具体可看<a href="http://phonegap.com/">phonegap官网</a>进行学习。</p>
+
+<h2>PhoneGap与Cordova的关系</h2>
+
+<p>Cordova是PhoneGap贡献给Apache后的开源项目，是从PhoneGap中抽离出的核心代码，是驱动PhoneGap的核心引擎。有点类似Webkit和Google Chrome的关系。</p>
+
+<p>渊源就是：早在2011年10月，Adobe收购了Nitobi Software和它的PhoneGap产品，然后宣布这个移动Web开发框架将会继续开源，并把它提交到Apache Incubator，以便完全接受ASF的管治。当然，由于Adobe拥有了PhoneGap商标，所以开源组织的这个PhoneGap v2.0版产品就更名为Apache Cordova。</p>
+
+<p>为什么说这个？因为下面的文章中，会出现<code>Cordova</code>这个命令，大家不要觉得奇怪。</p>
+
+<h2>js与native通信的原理</h2>
+
+<p>但在切入正题前，需要先了解下iOS js与native通信的原理。了解这个原理，是理解PhoneGap代码的<code>关键</code>。</p>
+
+<p>具体可以看我之前写的<a href="http://sjpsega.com/blog/2014/03/08/js-communicate-with-native-in-iOS/">iOS Js与native相互通信</a>，这里做简单说明。</p>
+
+<h3>js &ndash;> native</h3>
+
+<p>在iOS中，js调用native并没有提供原生的实现，只能通过UIWebView相关的UIWebViewDelegate协议的</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">webView:</span><span class="p">(</span><span class="n">UIWebView</span> <span class="o">*</span><span class="p">)</span><span class="nv">webView</span> <span class="nf">shouldStartLoadWithRequest:</span><span class="p">(</span><span class="n">NSURLRequest</span> <span class="o">*</span><span class="p">)</span><span class="nv">request</span> <span class="nf">navigationType:</span><span class="p">(</span><span class="n">UIWebViewNavigationType</span><span class="p">)</span><span class="nv">navigationType</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>方法来做拦截，并在这个方法中，根据url的协议或特征字符串来做调用方法或触发事件等工作，如</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">/*</span>
+</span><span class='line'><span class="o">*</span> <span class="err">方法的返回值是</span><span class="kt">BOOL</span><span class="err">值。</span>
+</span><span class='line'><span class="o">*</span> <span class="err">返回</span><span class="n">YES</span><span class="err">：表示让浏览器执行默认操作，比如某个</span><span class="n">a</span><span class="err">链接跳转</span>
+</span><span class='line'><span class="o">*</span> <span class="err">返回</span><span class="n">NO</span><span class="err">：表示不执行浏览器的默认操作，这里因为通过</span><span class="n">url</span><span class="err">协议来判断</span><span class="n">js</span><span class="err">执行</span><span class="n">native</span><span class="err">的操作，肯定不是浏览器默认操作，故返回</span><span class="n">NO</span>
+</span><span class='line'><span class="o">*</span> <span class="o">/</span>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nl">webView:</span><span class="p">(</span><span class="n">UIWebView</span> <span class="o">*</span><span class="p">)</span><span class="n">webView</span> <span class="nl">shouldStartLoadWithRequest:</span><span class="p">(</span><span class="n">NSURLRequest</span> <span class="o">*</span><span class="p">)</span><span class="n">request</span> <span class="nl">navigationType:</span><span class="p">(</span><span class="n">UIWebViewNavigationType</span><span class="p">)</span><span class="n">navigationType</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">request</span> <span class="n">URL</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([[</span><span class="n">url</span> <span class="n">scheme</span><span class="p">]</span> <span class="nl">isEqualToString:</span><span class="s">@&quot;callFunction&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//调用原生方法</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(([[</span><span class="n">url</span> <span class="n">scheme</span><span class="p">]</span> <span class="nl">isEqualToString:</span><span class="s">@&quot;sendEvent&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//触发事件</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>值得注意的是，通过这个方式，js调用native是<code>异步</code>的。</p>
+
+<h3>native &ndash;> js</h3>
+
+<p>native调用js非常简洁方便，只需要</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">webView</span> <span class="nl">stringByEvaluatingJavaScriptFromString:</span><span class="s">@&quot;alert(&#39;hello world!&#39;)&quot;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>并且该方法是<code>同步</code>的。</p>
+
+<p>native调用js非常简单直接，所以PhoneGap解决的主要是js调用native的问题。</p>
+
+<h2>PhoneGap js &ndash;> native</h2>
+
+<p>我们通过一个js调用native的Dialog的例子做说明。</p>
+
+<p>Dialog是一个PhoneGap的插件，可以看<a href="https://github.com/apache/cordova-plugin-dialogs/blob/master/doc/index.md">dialog 插件文档</a>，学习下载并使用该插件。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="err">这里有个很重要的事需要说明一下：</span>
+</span><span class='line'><span class="err">目前</span><span class="n">PhoneGap</span><span class="err">的文档更新非常不及时，特别是插件的使用方面，比如</span><span class="n">Dialog</span><span class="err">插件的使用，文档中写的是使用</span><span class="n">navigator</span><span class="p">.</span><span class="n">notification</span><span class="p">.</span><span class="n">alert</span><span class="err">，但是经过我的摸索，因为现在</span><span class="n">PhoneGap</span><span class="err">使用</span><span class="n">AMD</span><span class="err">的方式来管理插件，所以应该是使用</span><span class="n">cordova</span><span class="p">.</span><span class="n">require</span><span class="p">(</span><span class="s">&quot;cordova/plugin/notification&quot;</span><span class="p">).</span><span class="n">alert</span><span class="err">的方式来调用。</span>
+</span><span class='line'><span class="err">插件的合并方面，也有很多坑，主要是文档不全</span> <span class="o">-</span> <span class="o">-|||</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>js部分</h3>
+
+<p>在html上添加一个button，然后通过下列代码调用：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">alertDismissed</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// do something</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">showAlert</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">cordova</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;cordova/plugin/notification&quot;</span><span class="p">).</span><span class="nx">alert</span><span class="p">(</span>
+</span><span class='line'>        <span class="s1">&#39;You are the winner!&#39;</span><span class="p">,</span>  <span class="c1">// message</span>
+</span><span class='line'>        <span class="nx">alertDismissed</span><span class="p">,</span>         <span class="c1">// callback</span>
+</span><span class='line'>        <span class="s1">&#39;Game Over&#39;</span><span class="p">,</span>            <span class="c1">// title</span>
+</span><span class='line'>        <span class="s1">&#39;Done&#39;</span>                  <span class="c1">// buttonName</span>
+</span><span class='line'>    <span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再看下对应的<code>cordova/plugin/notification</code>的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">exec</span> <span class="o">=</span> <span class="nx">cordova</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cordova/exec&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">platform</span> <span class="o">=</span> <span class="nx">cordova</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cordova/platform&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/**</span>
+</span><span class='line'><span class="cm">     * Open a native alert dialog, with a customizable title and button text.</span>
+</span><span class='line'><span class="cm">     *</span>
+</span><span class='line'><span class="cm">     * @param {String} message              Message to print in the body of the alert</span>
+</span><span class='line'><span class="cm">     * @param {Function} completeCallback   The callback that is called when user clicks on a button.</span>
+</span><span class='line'><span class="cm">     * @param {String} title                Title of the alert dialog (default: Alert)</span>
+</span><span class='line'><span class="cm">     * @param {String} buttonLabel          Label of the close button (default: OK)</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="nx">alert</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">completeCallback</span><span class="p">,</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">buttonLabel</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">_title</span> <span class="o">=</span> <span class="p">(</span><span class="nx">title</span> <span class="o">||</span> <span class="s2">&quot;Alert&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">_buttonLabel</span> <span class="o">=</span> <span class="p">(</span><span class="nx">buttonLabel</span> <span class="o">||</span> <span class="s2">&quot;OK&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">exec</span><span class="p">(</span><span class="nx">completeCallback</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;Notification&quot;</span><span class="p">,</span> <span class="s2">&quot;alert&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">message</span><span class="p">,</span> <span class="nx">_title</span><span class="p">,</span> <span class="nx">_buttonLabel</span><span class="p">]);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">....</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到alert最终其实是调用了<code>exec</code>方法来调用native代码的，<code>exec</code>方法非常关键，是PhoneGap js调用native的核心代码。</p>
+
+<p>然后在源码中搜索<code>exec对应的cordova/exec</code>，查看exec方法的源码。</p>
+
+<p>因为对应的<code>cordova/exec</code>源码非常长，我只能截取最关键的代码并做说明：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">define</span><span class="p">(</span><span class="s2">&quot;cordova/exec&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span> <span class="nx">exports</span><span class="p">,</span> <span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">iOSExec</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">successCallback</span><span class="p">,</span> <span class="nx">failCallback</span><span class="p">,</span> <span class="nx">service</span><span class="p">,</span> <span class="nx">action</span><span class="p">,</span> <span class="nx">actionArgs</span><span class="p">,</span> <span class="nx">splitCommand</span><span class="p">;</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">callbackId</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// 格式化传入参数</span>
+</span><span class='line'>        <span class="nx">successCallback</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">//成功的回调函数</span>
+</span><span class='line'>        <span class="nx">failCallback</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>    <span class="c1">//失败的回调函数</span>
+</span><span class='line'>        <span class="nx">service</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>         <span class="c1">//表示调用native类的类名</span>
+</span><span class='line'>        <span class="nx">action</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>          <span class="c1">//表示调用native类的一个方法</span>
+</span><span class='line'>        <span class="nx">actionArgs</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>      <span class="c1">//参数</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//默认callbackId为&#39;INVALID&#39;，表示不需要回调</span>
+</span><span class='line'>        <span class="nx">callbackId</span> <span class="o">=</span> <span class="s1">&#39;INVALID&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//如果传入参数有successCallback或failCallback，说明需要回调，就设置callbackId，并存储对应的回调函数</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">successCallback</span> <span class="o">||</span> <span class="nx">failCallback</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">callbackId</span> <span class="o">=</span> <span class="nx">service</span> <span class="o">+</span> <span class="nx">cordova</span><span class="p">.</span><span class="nx">callbackId</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>            <span class="nx">cordova</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">[</span><span class="nx">callbackId</span><span class="p">]</span> <span class="o">=</span>
+</span><span class='line'>                <span class="p">{</span><span class="nx">success</span><span class="o">:</span><span class="nx">successCallback</span><span class="p">,</span> <span class="nx">fail</span><span class="o">:</span><span class="nx">failCallback</span><span class="p">};</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//格式化传入的service、action、actionArgs，并存储，准备native代码来调用</span>
+</span><span class='line'>        <span class="nx">actionArgs</span> <span class="o">=</span> <span class="nx">massageArgsJsToNative</span><span class="p">(</span><span class="nx">actionArgs</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">command</span> <span class="o">=</span> <span class="p">[</span><span class="nx">callbackId</span><span class="p">,</span> <span class="nx">service</span><span class="p">,</span> <span class="nx">action</span><span class="p">,</span> <span class="nx">actionArgs</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">commandQueue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">command</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//通过创建一个iframe并设置src，给native代码一个指令，开始执行js调用native的过程</span>
+</span><span class='line'>        <span class="nx">execIframe</span> <span class="o">=</span> <span class="nx">execIframe</span> <span class="o">||</span> <span class="nx">createExecIframe</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">execIframe</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">execIframe</span> <span class="o">=</span> <span class="nx">createExecIframe</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nx">execIframe</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;gap://ready&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">iOSExec</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>为了调用native方法，exec方法做了大量初始化的工作，这么做的原因，还是因为<code>iOS没有提供直接的方法来执行js调用native，不能把参数直接传递给native，所以只能通过js端存储对应操作的所有参数，然后通过指令来让native代码来回调的方式间接完成。</code></p>
+
+<h3>native部分</h3>
+
+<p>之后，就走到了native代码的部分。</p>
+
+<h4>CDVViewController</h4>
+
+<p>前面js通过创建一个iframe并发送<code>gap://ready</code>这个指令来告诉native开始执行操作。native中对应的操作在<code>CDVViewController.m</code>文件中的<code>webView:shouldStartLoadWithRequest:navigationType:</code>方法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">webView:</span><span class="p">(</span><span class="n">UIWebView</span><span class="o">*</span><span class="p">)</span><span class="nv">theWebView</span> <span class="nf">shouldStartLoadWithRequest:</span><span class="p">(</span><span class="n">NSURLRequest</span><span class="o">*</span><span class="p">)</span><span class="nv">request</span> <span class="nf">navigationType:</span><span class="p">(</span><span class="n">UIWebViewNavigationType</span><span class="p">)</span><span class="nv">navigationType</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSURL</span><span class="o">*</span> <span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">request</span> <span class="n">URL</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/*</span>
+</span><span class='line'><span class="cm">     * 判断url的协议以&quot;gap&quot;开头</span>
+</span><span class='line'><span class="cm">     * 执行在js端调用cordova.exec()的command队列</span>
+</span><span class='line'><span class="cm">     * 注：这里的command表示js调用native</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([[</span><span class="n">url</span> <span class="n">scheme</span><span class="p">]</span> <span class="nl">isElaqualToString:</span><span class="s">@&quot;gap&quot;</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>       <span class="c1">//_commandQueue即CDVCommandQueue类</span>
+</span><span class='line'>        <span class="c1">//从js端拉取command，即存储在js端commandQueue数组中的数据</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_commandQueue</span> <span class="n">fetchCommandsFromJs</span><span class="p">];</span>
+</span><span class='line'>        <span class="c1">//开始执行command</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_commandQueue</span> <span class="n">executePending</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>到这里，其实已经走完js调用native的主要过程了。</p>
+
+<p>之后，让我们再看下<code>CDVCommandQueue</code>中的fetchCommandsFromJs方法与executePending方法中做的事。</p>
+
+<h4>CDVCommandQueue</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">fetchCommandsFromJs</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 获取js端存储的command，并在native暂存</span>
+</span><span class='line'>    <span class="n">NSString</span><span class="o">*</span> <span class="n">queuedCommandsJSON</span> <span class="o">=</span> <span class="p">[</span><span class="n">_viewController</span><span class="p">.</span><span class="n">webView</span> <span class="nl">stringByEvaluatingJavaScriptFromString:</span>
+</span><span class='line'>        <span class="s">@&quot;cordova.require(&#39;cordova/exec&#39;).nativeFetchMessages()&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">enqueueCommandBatch:</span><span class="n">queuedCommandsJSON</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>fetchCommandsFromJs方法非常简单，不细说了。</p>
+
+<p>executePending方法稍微复杂些，因为js是单线程的，而iOS是典型的多线程，所以executePending方法做的工作主要是让command一个一个执行，防止线程问题。</p>
+
+<p>executePending方法其实与之后的execute方法紧密相连，这里一起列出，只保留关键代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">executePending</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="c1">//_queue即command队列，依次执行</span>
+</span><span class='line'>    <span class="k">while</span> <span class="p">([</span><span class="n">_queue</span> <span class="n">count</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'>        <span class="c1">//取出从js中获取的command字符串，解析为native端的CDVInvokedUrlCommand类</span>
+</span><span class='line'>        <span class="n">CDVInvokedUrlCommand</span><span class="o">*</span> <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="n">CDVInvokedUrlCommand</span> <span class="nl">commandFromJson:</span><span class="n">jsonEntry</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'>        <span class="c1">//执行command</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">execute:</span><span class="n">command</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">execute:</span><span class="p">(</span><span class="n">CDVInvokedUrlCommand</span><span class="o">*</span><span class="p">)</span><span class="nv">command</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="kt">BOOL</span> <span class="n">retVal</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">//获取plugin对应的实例</span>
+</span><span class='line'>    <span class="n">CDVPlugin</span><span class="o">*</span> <span class="n">obj</span> <span class="o">=</span> <span class="p">[</span><span class="n">_viewController</span><span class="p">.</span><span class="n">commandDelegate</span> <span class="nl">getCommandInstance:</span><span class="n">command</span><span class="p">.</span><span class="n">className</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">//调用plugin实例的方法名</span>
+</span><span class='line'>    <span class="n">NSString</span><span class="o">*</span> <span class="n">methodName</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;%@:&quot;</span><span class="p">,</span> <span class="n">command</span><span class="p">.</span><span class="n">methodName</span><span class="p">];</span>
+</span><span class='line'>    <span class="kt">SEL</span> <span class="n">normalSelector</span> <span class="o">=</span> <span class="n">NSSelectorFromString</span><span class="p">(</span><span class="n">methodName</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">obj</span> <span class="nl">respondsToSelector:</span><span class="n">normalSelector</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//消息发送，执行plugin实例对应的方法，并传递参数</span>
+</span><span class='line'>        <span class="n">objc_msgSend</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">normalSelector</span><span class="p">,</span> <span class="n">command</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// There&#39;s no method to call, so throw an error.</span>
+</span><span class='line'>        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;ERROR: Method &#39;%@&#39; not defined in Plugin &#39;%@&#39;&quot;</span><span class="p">,</span> <span class="n">methodName</span><span class="p">,</span> <span class="n">command</span><span class="p">.</span><span class="n">className</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">retVal</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">retVal</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到js调用native plugin最终执行的是<code>objc_msgSend(obj, normalSelector, command);</code>这块代码，这里我们再拿js端的代码来进行理解。</p>
+
+<p>之前js中的showAlert方法中我们书写了
+<code>exec(completeCallback, null, "Notification", "alert", [message, _title, _buttonLabel]);</code></p>
+
+<p>故，这里的对应关系：</p>
+
+<ul>
+<li>obj:&ldquo;Notification&rdquo;</li>
+<li>normalSelector:&ldquo;alert&rdquo;</li>
+<li>command:[message, <em>title, </em>buttonLabel]</li>
+</ul>
+
+
+<h4>CDVNotification</h4>
+
+<p>&ldquo;Notification&#8221;真正对应的iOS类是CDVNotification。js端调用的插件名字&#8221;Notification&#8221;与真正的native类名并非完全对应，因为native因为平台的不同，有不同的命名规范。</p>
+
+<p>看下CDVNotification的代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">alert:</span><span class="p">(</span><span class="n">CDVInvokedUrlCommand</span><span class="o">*</span><span class="p">)</span><span class="nv">command</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSString</span><span class="o">*</span> <span class="n">callbackId</span> <span class="o">=</span> <span class="n">command</span><span class="p">.</span><span class="n">callbackId</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">NSString</span><span class="o">*</span> <span class="n">message</span> <span class="o">=</span> <span class="p">[</span><span class="n">command</span> <span class="nl">argumentAtIndex:</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSString</span><span class="o">*</span> <span class="n">title</span> <span class="o">=</span> <span class="p">[</span><span class="n">command</span> <span class="nl">argumentAtIndex:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSString</span><span class="o">*</span> <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="n">command</span> <span class="nl">argumentAtIndex:</span><span class="mi">2</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">showDialogWithMessage:</span><span class="n">message</span> <span class="nl">title:</span><span class="n">title</span> <span class="nl">buttons:</span><span class="err">@</span><span class="p">[</span><span class="n">buttons</span><span class="p">]</span> <span class="nl">defaultText:</span><span class="nb">nil</span> <span class="nl">callbackId:</span><span class="n">callbackId</span> <span class="nl">dialogType:</span><span class="n">DIALOG_TYPE_ALERT</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>前面用<code>objc_msgSend(obj, normalSelector, command);</code>做消息发送，执行的便是这块代码，代码很好理解，就是对command再做解析，并显示。</p>
+
+<p>最终效果：</p>
+
+<p><img src="/images/2014-06-01-phonegap-ios/alert.png" alt="alert" /></p>
+
+<p>点击&#8221;Done&#8221;，native会再回调执行js端的成功回调，这里对应的就是js里设置的alertDismissed方法。</p>
+
+<p>到此为止，我们已经走完从js端调用native alert的全部过程了。</p>
+
+<p>列下过程的核心代码：</p>
+
+<ul>
+<li>js部分：
+
+<ul>
+<li>cordova.js中的iOSExec()方法，指定js调用native的初始化工作，并发送开始执行的指令</li>
+</ul>
+</li>
+<li>native部分：
+
+<ul>
+<li>CDVViewController：拦截js调用native的url协议，执行调用</li>
+<li>CDVCommandQueue：执行js调用native的队列，调用对应的plugin</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>时序图</h2>
+
+<p>以上Dialog例子中，PhoneGap js调用native的时序图：
+<img src="/images/2014-06-01-phonegap-ios/PhoneGap.jpg" alt="PhoneGap" /></p>
+
+<h2>结语</h2>
+
+<p>PhoneGap还是很给力的，能做到主流平台全兼容着实不容易。</p>
+
+<p>iOS端因为没有提供js调用native的直接方法，做的处理也算合理到位。</p>
+
+<p>特别是插件化的支持做的很好，但是文档着实不够给力。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/25/singleton-in-ios/">iOS中的单例模式</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-25T12:25:10+08:00" pubdate data-updated="true">May 25<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>单例模式是指在一个系统中，类有且只有一个实例对象，可以通过全局的一个入口对这个实例对象进行访问。</p>
+
+<p>在iOS开发中，单例模式是非常常用的一种设计模式。</p>
+
+<h2>ARC下的实现</h2>
+
+<p>iOS5.0以后就开始可以使用ARC（Automatic Reference Counting：自动引用计数）来代替之前的MRC（Manual Reference Counting：人工引用计数）。</p>
+
+<p>使用ARC会减少很多代码和忘了释放对象的苦恼。</p>
+
+<p>慢慢ARC会成为主流，我入门iOS也是学ARC的，所以这里只写ARC的单例实现。</p>
+
+<p><code>Singleton.h:</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  Singleton.h</span>
+</span><span class='line'><span class="c1">//  Singleton</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#import &lt;Foundation/Foundation.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">Singleton</span> : <span class="nc">NSObject</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">Singleton</span> <span class="o">*</span><span class="p">)</span><span class="nf">sharedInstance</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Singleton.m:</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  Singleton.m</span>
+</span><span class='line'><span class="c1">//  Singleton</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#import &quot;Singleton.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">Singleton</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">Singleton</span> <span class="o">*</span><span class="p">)</span><span class="nf">sharedInstance</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="n">Singleton</span> <span class="o">*</span><span class="n">singleton</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">static</span> <span class="n">dispatch_once_t</span> <span class="n">token</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">dispatch_once</span><span class="p">(</span><span class="o">&amp;</span><span class="n">token</span><span class="p">,</span><span class="o">^</span><span class="p">{</span>
+</span><span class='line'>        <span class="n">singleton</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Singleton</span> <span class="n">alloc</span><span class="p">]</span><span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">singleton</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">init</span><span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">self</span><span class="p">){</span>
+</span><span class='line'>        <span class="c1">//在这里可以进行类的初始化工作</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在这个实现中，核心是使用了GCD（Grand Central Dispatch）的<code>dispatch_once</code>方法，该方法可以保证Singleton只被实例化一次，并且该方法<code>线程安全</code>。</p>
+
+<h2>纰漏</h2>
+
+<p>以上实现有一个纰漏，Singleton继承于<code>NSObject</code>，<code>NSObject</code>有一个公开的初始化方法<code>-(id)init</code>，所以若使用者不小心，他完全可以使用<code>[[Singleton alloc]init]</code>来创建多个实例对象，这样轻易就破坏了单例的实现。</p>
+
+<p>例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">Singleton</span> <span class="o">*</span><span class="n">single1</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Singleton</span> <span class="n">alloc</span><span class="p">]</span><span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="n">Singleton</span> <span class="o">*</span><span class="n">single2</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Singleton</span> <span class="n">alloc</span><span class="p">]</span><span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="c1">//结果为0，即NO，两者不是同一个实例</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%d&quot;</span><span class="p">,</span><span class="n">single1</span> <span class="o">==</span> <span class="n">single2</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>更好的实现</h2>
+
+<p>其实是要对<code>Singleton.m</code>做一点改变，就能封住这个纰漏：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  Singleton.m</span>
+</span><span class='line'><span class="c1">//  Singleton</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#import &quot;Singleton.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">Singleton</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">Singleton</span> <span class="o">*</span><span class="p">)</span><span class="nf">sharedInstance</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="n">Singleton</span> <span class="o">*</span><span class="n">singleton</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">static</span> <span class="n">dispatch_once_t</span> <span class="n">token</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">dispatch_once</span><span class="p">(</span><span class="o">&amp;</span><span class="n">token</span><span class="p">,</span><span class="o">^</span><span class="p">{</span>
+</span><span class='line'>        <span class="c1">//这里调用私有的initSingle方法</span>
+</span><span class='line'>        <span class="n">singleton</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Singleton</span> <span class="n">alloc</span><span class="p">]</span><span class="n">initSingle</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">singleton</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//只是把原来在init方法中的代码，全都搬到initSingle</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initSingle</span><span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">self</span><span class="p">){</span>
+</span><span class='line'>        <span class="c1">//在这里可以进行类的初始化工作</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">init</span><span class="p">{</span>
+</span><span class='line'>    <span class="c1">//改为调用[Singleton sharedInstance]</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">Singleton</span> <span class="n">sharedInstance</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>新建私有的initSingle方法，将原来init中的实现，全部搬入</li>
+<li>sharedInstance中的singleton初始化，调用initSingle方法</li>
+<li>init方法中，调用[Singleton sharedInstance]</li>
+</ul>
+
+
+<p>该实现，我是自己在实践中，觉得更好的单例实现，如有问题，请及时反馈。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/01/qcon-beijing-2/">QCon北京行（二）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-01T17:24:01+08:00" pubdate data-updated="true">May 1<span>st</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在<a href="/blog/2014/05/01/qcon-beijing-1/">上篇 QCon北京行（一）</a>中主要写了对北京的印象，现在写下关于QCon的话题。</p>
+
+<h2>代价</h2>
+
+<p>来之前，看了QCon的门票价格，我看了都吓了一跳：<code>3840 - 8折</code>，好贵！而且据说门票还早早销罄了……</p>
+
+<p>简单算下我一个人来北京参加QCon，公司付出的费用：</p>
+
+<ul>
+<li>门票 3840</li>
+<li>来回机票 1000 * 2</li>
+<li>住宿 500 * 4</li>
+</ul>
+
+
+<p>不算交通与餐费，这样就7800了，算上的话，总体费用差不多要到8500了。所以来之前我就想，要好好听课，不能浪费钱。</p>
+
+<h2>事与愿违</h2>
+
+<p>我的专长是前端与iOS，三天的QCon，只有第二天有前端的专题，可是干货很少，这不仅仅是我个人的感受，其他参会者也有这样的感觉。毕竟平均每个分享者只有1个小时的时间，而内容的深度往往超过这一个小时的深度，再加上演讲水平等因素，往往给人带来水的印象；而且有些参会者的主要目的是来宣传公司或产品的……</p>
+
+<p>所以，之后我主要记录印象比较深的话题与内容。</p>
+
+<h2>《产品设计中的逆向思维》</h2>
+
+<p>主题的演讲者是<a href="http://guopengliang.com/">梁国鹏</a>，iOS上著名的记账软件DailyCost的作者，一人业余时间独立完成了产品、设计、开发和运营。</p>
+
+<ul>
+<li>极致
+
+<ul>
+<li>要找到问题的关键、本源</li>
+</ul>
+</li>
+<li>思维陷阱
+
+<ul>
+<li>肥皂很滑，容易掉地上，如何解决捡肥皂的问题？做捡肥皂的工具么？防滑手套，还是捡肥皂的夹子？不，最简单的是使用沐浴液</li>
+<li>解决问题的思路往往需要跳出原有的条条框框</li>
+</ul>
+</li>
+<li>小白精神
+
+<ul>
+<li>市面上的几张软件太复杂，如挖财、随手记等，产品都高大上，功能很全，记一笔账步骤太多</li>
+<li>DailyCost的切入点是化繁为简，用最少的步骤记账，让小白也能轻松使用</li>
+</ul>
+</li>
+<li>保持克制
+
+<ul>
+<li>产品上线，用户反馈了很多问题，提了很多需求，要仔细甄别，开发最有价值的功能</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>《跨端组件实践》</h2>
+
+<p>主题演讲者是王集鹄，百度资深研发工程师，来自社区基础技术部 FEX。</p>
+
+<p>自动响应端能力的组件
+<img src="http://fex.baidu.com/img/light-component/light-component-ui.png" alt="light-component-ui" /></p>
+
+<ul>
+<li>受到响应式网页设计理念的启发，界面布局可以根据运行环境自动响应和调整，那么本地能力也可以这样</li>
+<li>如在普通浏览器里使用 HTML5 / CSS3 构造组件，在提供本地能力的环境里使用 Native View 构造组件。</li>
+<li>在提供本地能力的环境里，界面会更流畅；在没有本地能力的环境里应用是完整的。</li>
+</ul>
+
+
+<p>跨端组件解决的问题：</p>
+
+<ul>
+<li>满足 UI 需要局部流畅的需求</li>
+<li>满足运行在各种环境的需求</li>
+</ul>
+
+
+<p>特点：</p>
+
+<ul>
+<li>同一套 API</li>
+<li>更好地使用运行环境提供的能力</li>
+</ul>
+
+
+<p>哪些组件适合做跨端组件？
+计算量大，需要流畅:</p>
+
+<ul>
+<li>图册浏览</li>
+<li>地图</li>
+<li>多媒体播放器</li>
+<li>3D渲染</li>
+<li>图像识别，二维码识别、手势识别</li>
+</ul>
+
+
+<p>这篇分享的记录这么详细，其实是因为原作者出了<a href="http://fex.baidu.com/blog/2014/05/light-component/">blog</a>&hellip;</p>
+
+<p>因为工作中，也在做这方面的工作，跟我们的方案与思路有一些契合点，该方案的优缺点：</p>
+
+<p>优点：</p>
+
+<ul>
+<li>在各种端都有良好的用户体验</li>
+<li>跨平台不用修改HTML代码</li>
+</ul>
+
+
+<p>缺点：</p>
+
+<ul>
+<li>工作量大，每个端都要去适配，写对应的组件代码</li>
+</ul>
+
+
+<h2>ChinaJoy般的QCon</h2>
+
+<p>这次来QCon的展台主要是云服务与安全的，可是大家一开始就用美女来吸引眼球……</p>
+
+<p>这个策略，是只能说，你们赢了……</p>
+
+<p><img src="/images/2014-05-01-qcon-beijing-2/beauty_1.jpg" alt="beauty_1" />
+<img src="/images/2014-05-01-qcon-beijing-2/beauty_2.jpg" alt="beauty_2" />
+<img src="/images/2014-05-01-qcon-beijing-2/beauty_3.jpg" alt="beauty_3" />
+<img src="/images/2014-05-01-qcon-beijing-2/beauty_4.jpg" alt="beauty_4" />
+<img src="/images/2014-05-01-qcon-beijing-2/beauty_5.jpg" alt="beauty_5" />
+<img src="/images/2014-05-01-qcon-beijing-2/beauty_6.jpg" alt="beauty_6" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/06/ios-h5-trap/">iOS H5的那些坑</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/02/first-china-joy/">我的第一次China Joy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/06/views-note/">《#3 Views》 学习笔记</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/05/daotachuanqi/">《刀塔传奇》</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/25/arc-note/">ARC学习笔记</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>About Me</h1>
+  <p>程序员</p>
+  <p>技术经历：As -> Js -> iOS</p>
+  <p>新浪微博：<a href="http://weibo.com/sjpsega">IORI_YAGAMI_7</a></p>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - sjpsega -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+</body>
+</html>

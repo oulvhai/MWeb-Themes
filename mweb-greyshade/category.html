@@ -1,0 +1,42 @@
+<div id="content" class="inner">
+<div itemscope itemtype="http://schema.org/Blog">
+
+{% for p in posts %}
+	<article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+		<div class="meta">
+			<div class="date">
+				<time datetime="{{ p.dateGTM }}" itemprop="datePublished">{{ p.date }}</time>
+			</div>
+			{% if p.cats.@count %}<div class="tags">posted in {% /if %}
+			{% for cat in p.cats %}
+			    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
+			{% /for %} 
+			{% if p.cats.@count %}</div>{% /if %}
+		</div>
+		<h1 class="title" itemprop="name"><a href="{{ p.url }}" itemprop="url">
+		{{ p.title }}</a></h1>
+		<div class="entry-content" itemprop="articleBody">
+			
+			{{ p.desContent }}
+
+			{% if p.readMore.length %} 
+			<a href="{{ p.url }}#more" class="more-link">Read on &rarr;</a>
+    		{% /if %}
+			
+		</div>
+
+	</article>
+ {% /for %} 
+
+</div>
+<nav id="pagenavi">
+	{% if prevPageUrl.length %} <a class="prev" href="{{ prevPageUrl }}">Prev</a> {% /if %} 
+	{% if nextPageUrl.length %} <a class="next" href="{{ nextPageUrl }}">Next</a> {% /if %}
+	<div class="center"><a href="archives.html">Blog Archives</a></div>
+
+</nav>
+
+</div>
+
+
+
