@@ -14,10 +14,15 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link href="atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+	<link href="atom.xml" rel="alternate" title="{{ siteName }}" type="application/atom+xml">
 
 	<link href="asset/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<link href="asset/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script src="asset/javascripts/jquery.min.js"></script>
+	<script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/solarized_dark.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
 	<!--[if lt IE 9]><script src="asset/javascripts/html5.js"></script><![endif]-->
 	<!-- <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'> -->
 	<style type="text/css">
@@ -46,7 +51,7 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 	</style>
-	<script src="asset/javascripts/jquery.min.js"></script>
+	
 	<style type="text/css">
 	.container .left-col{ opacity: 1;}
 	#pagenavi a{ font-size: 1.3em;}
@@ -58,6 +63,8 @@
 		line-height: 1.2em;
 		padding-top: 8px;
 	}
+	article pre{ background: none; border: none; padding: 0;}
+	article .entry-content{text-align: left;}
 	</style>
   
 
