@@ -13,7 +13,7 @@
 <section class="index-archives">
 <h1 class="title" style="font-size: 3em; margin-bottom:20px; " itemprop="name">Recent Posts</h1>
 		{% for p in posts %}
-			{% if currentLoop.currentIndex < 5 %}
+			{% if currentLoop.currentIndex < 8 %}
 				<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 					<div class="meta">
 						<span class="date"><time datetime="{{ p.dateGTM }}" itemprop="datePublished">{{ p.date }}</time></span>
