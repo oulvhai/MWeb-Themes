@@ -1,0 +1,54 @@
+   <div class="container" id="content-wrap">
+
+      <script type="text/javascript">
+      $(function(){
+      	$('#menu-blog').addClass('active');
+      });
+      </script>
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+			{% for p in posts %}
+					<div class="blog-post">
+			            <h2 class="blog-post-title">{{ p.title }}</h2>
+			            <p class="blog-post-meta">{{ p.date }} 
+				            {% if p.cats.@count %}&nbsp;posted in {% /if %}
+							{% for cat in p.cats %}
+							    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
+							{% /for %} 
+							{% if p.cats.@count %} {% /if %}
+			            </p>
+			            <div class="content-responsive">
+			            {{ p.desContent }}
+
+
+						{% if p.readMore.length %} 
+						<a href="{{ p.url }}#more" class="more-link">继续阅读 &rarr;</a>
+			    		{% /if %}
+			           </div>
+			          </div><!-- /.blog-post -->
+			 {% /for %} 
+
+
+          <nav>
+            <ul class="pager">
+            {% if prevPageUrl.length %}
+            	<li class=""><a href="{{ prevPageUrl }}"><span aria-hidden="true">&larr;</span> Newer</a></li>
+            {% else %}
+            	<li class="  disabled "><a href="#index"><span aria-hidden="true">&larr;</span> Newer</a></li>
+            {% /if %}
+
+				<li class=""><a href="archives.html">Archives</a></li>
+
+			{% if nextPageUrl.length %}
+			<li class=""><a href="{{ nextPageUrl }}">Older <span aria-hidden="true">&rarr;</span></a></li>
+			{% else %}
+            	<li class=" disabled "><a href="#index">Older <span aria-hidden="true">&rarr;</span></a></li>
+            {% /if %}
+            </ul>
+          </nav>
+
+        </div><!-- /.blog-main -->
+
+       <!-- slider start -->
+

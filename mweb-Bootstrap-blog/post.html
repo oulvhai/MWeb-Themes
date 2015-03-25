@@ -1,0 +1,33 @@
+   <script type="text/javascript">
+      $(function(){
+      	$('#menu-blog').addClass('active');
+      });
+      </script>
+   <div class="container" id="content-wrap">
+
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+			
+					<div class="blog-post">
+			            <h2 class="blog-post-title">{{post.title}}</h2>
+			            <p class="blog-post-meta">{{ post.date }} 
+				            {% if post.cats.@count %}&nbsp;posted in {% /if %}
+							{% for cat in post.cats %}
+							    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
+							{% /for %} 
+							{% if post.cats.@count %} {% /if %}
+			            </p>
+			            <div class="content-responsive">
+			            {{ post.content }}
+			            </div>
+						
+			           
+			          </div><!-- /.blog-post -->
+			<div class="share-comment">
+			{{ commentAndShareCode }}
+			</div>
+
+        </div><!-- /.blog-main -->
+
+       <!-- slider start -->
