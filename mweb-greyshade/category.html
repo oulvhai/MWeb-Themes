@@ -16,7 +16,9 @@
 		<h1 class="title" itemprop="name"><a href="{{ p.url }}" itemprop="url">
 		{{ p.title }}</a></h1>
 		<div class="entry-content" itemprop="articleBody">
-			
+			{% if p.ext_sp_pic.length %} 
+				<img src="{{p.ext_sp_pic}}" /><br />
+			{% /if %}
 			{{ p.desContent }}
 
 			{% if p.readMore.length %} 

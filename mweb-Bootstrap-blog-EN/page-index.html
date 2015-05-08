@@ -124,7 +124,7 @@
      <hr />
      <div class="row">
       <div class="col-sm-6">
-
+<div id="item-001">
       <h3 id="toc_0">Pro Markdown writing</h3>
 
 <ul>
@@ -149,7 +149,7 @@
 <li>Support six live preview themes. Easy to custom preview theme. All themes can export to HTML or PDF. To open live preview window, please press <code>CMD + R</code>. </li>
 <li>Support Outline view.</li>
 </ul>
-
+</div>
 <h3 id="toc_1">Design with two patterns</h3>
 
 <ul>
@@ -162,10 +162,14 @@
 
       </div>
       <div class="col-sm-6">
+      <div id="item-003">
 <h3 id="toc_2">Documents Library pattern for note taking</h3>
 
 <p>Documents Library pattern use categories tree to organize documents, support drag &amp; drop or paste insert pictrue and display immediately. Support import external Markdown or txt document to the library, export a category or documents to HTML, PDF or Markdown.</p>
 <p><img src="asset/mweb/export@x2.jpg" class="img-responsive" /></p>
+
+    
+      </div>
 
 <h3 id="toc_3">Documents Library pattern for static blog generator</h3>
 
@@ -173,10 +177,9 @@
 
 <p><img src="asset/mweb/buildsite@x2.jpg" class="img-responsive" /></p>
 
-
-
 </div>
     </div>
+
 
 <hr />
    <div class="row">
@@ -200,3 +203,12 @@
 	 	</ul>
       </div>
     </div></div>
+<script type="text/javascript">
+  $(function(){
+    if($('body').width()>767){
+      $('#item-003').css( 'min-height',$('#item-001').height() );
+    }
+    
+  });
+
+</script>

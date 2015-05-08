@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+    <channel>
+        <title><![CDATA[{{ siteName }}]]></title>
+        <link>{{ siteURL }}</link>
+        <language>zh-CN</language>
+        {% if ext_copyright.length %}
+            <copyright>{{ ext_copyright }}</copyright>
+        {% /if %}
+        {% if ext_itunes_subtitle.length %}
+            <itunes:subtitle>{{ ext_itunes_subtitle }}</itunes:subtitle>
+        {% /if %}
+        {% if ext_itunes_author.length %}
+            <itunes:author>{{ ext_itunes_author }}</itunes:author>
+        {% /if %}
+        {% if ext_itunes_summary.length %}
+            <itunes:summary>{{ ext_itunes_summary }}</itunes:summary>
+        {% /if %}
+        {% if ext_itunes_description.length %}
+            <description> {{ ext_itunes_description }} </description>
+        {% /if %}
+        <itunes:owner>
+            {% if ext_itunes_author.length %}<itunes:name>{{ ext_itunes_author }}</itunes:name>{% /if %}
+            {% if ext_itunes_email.length %}<itunes:email>{{ ext_itunes_email }}</itunes:email>{% /if %}
+        </itunes:owner>
+        {% if ext_itunes_image.length %}
+            <itunes:image href="{{ ext_itunes_image }}" />
+        {% /if %}
+        {% if ext_itunes_category.length %}
+            <itunes:category text="{{ ext_itunes_category }}"/>
+        {% /if %}
+        {% for p in posts %}
+            {% if p.ext_enclosureURL.length %}
+                <item>
+                    <title>{{ p.ext_title }}</title>
+                    <itunes:author> {{ p.ext_itunes_author }}</itunes:author>
+                    <itunes:subtitle> {{ p.ext_itunes_subtitle }} </itunes:subtitle>
+                    <itunes:summary><![CDATA[ 
+                        {% if p.ext_itunes_summary.length %} 
+                            {{ p.ext_itunes_summary }} 
+                        {% else %}
+                            {{ p.content }}
+                        {% /if %} ]]>
+                    </itunes:summary>
+                    <itunes:image href="{{ p.ext_itunes_image }}" />
+                    <enclosure url="{{ p.ext_enclosureURL }}"  length="{{ p.ext_enclosure_length }}"   type="{{ p.ext_enclosure_type }}"  />
+                    <guid>{{ p.ext_guid }}</guid>
+                    <pubDate>{{ p.ext_pubDate }}</pubDate>
+                    <itunes:duration>{{ p.ext_itunes_duration }}</itunes:duration>
+                </item>
+            {% /if %}
+        {% /for %}
+    </channel>
+</rss>
