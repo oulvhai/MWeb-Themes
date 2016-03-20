@@ -6,7 +6,7 @@
 body {
   font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif,Georgia, "Times New Roman", Times, serif;
   color: #555;
-  font-size: 1.5em; 
+  font-size: 1.5em;  line-height: 1.6em;
 }
 
 
@@ -36,82 +36,85 @@ h3, .h3,h4, .h4{padding-top: 0.8em; }
 pre{background-color: #f8f8f8;border-radius:0px;}   
 #content-wrap{ padding-top:2.5em; padding-bottom: 2.5em;}
 
-.product-name{  }
+.product-name{  background: url('../img/header-bg.jpg') no-repeat center top;
+  background-size: cover;
+  height: 370px;
+}
 .banner-head {
-        width: 100%;text-align: center;
-        font-family: Chalkboard,Helvetica, Arial, sans-serif;
-        padding-top: 1.4em;
-        font-size: 1.9em;
-        color: #111;
+        width: 100%;text-align: left;
+        font-family: Chalkboard,Helvetica, Arial, sans-serif; 
+        font-family: 'Myriad Pro','Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif;
+        padding:0.5em;
+        padding-left: 0;
+        padding-top: 15px;
+        font-size: 2.8em;
+        color: #fff;
+        margin-bottom: 0; padding-bottom: 0;
     }
-/* CUSTOMIZE THE CAROUSEL
--------------------------------------------------- */
+.product-name h3{ margin: 0; padding: 0.5em; color: #fff; width: 100%; text-align: left; padding-left: 0; font-size: 1.2em;}
+.product-name p{ color: #fff;}
 
-/* Carousel base class */
-.carousel {
-  height: 580px;
-  margin-bottom: 0px;
-}
-/* Since positioning the image, we need to help out the caption */
-.carousel-caption {
-  z-index: 10;
-  top: 0px;	
-  display: none;
-}
-.carousel-indicators{ bottom: -5px;}
-.carousel-caption h3{ font-size: 1.3em;}
-/* Declare heights because of positioning of img element */
-.carousel .item {
-  height: 550px;
-}
-.carousel-inner > .item > img {
-  width: 960px; margin: 0 auto; 
-}
+#app_info{ padding-top: 3em; }
+.app_download{ padding-top: 3em; }
+.app_download .download-mweb-store{font-family: 'Myriad Pro','Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif; 
+padding-top: 8px; font-size: 15px; font-weight: normal;}
+.app_download .download-mweb-store a{ text-decoration: none; color: #eee; }
+.app_download .download-mweb-store a strong{ color: #fff; text-decoration: underline; }
+.app_download .download-mweb-store a em{ font-size: 13px;}
 
+a.btn-download{ display: inline-block; }
+a.btn-buy-mas{ display: inline-block; padding-right: 20px; }
+a.btn-download img{ width: 144px; }
+a.btn-buy-mas img{ width: 224px; }
 
-.carousel-control.left,.carousel-control.right{ background-image: none;}
-.carousel-control .glyphicon{ color: #666;}
-.carousel-indicators li{ border: 1px solid #1c6ca9;}
-.carousel-indicators .active{ background-color: #1c6ca9;}
-@media (max-width: 486px) {
-	.carousel {
-  		height: 280px;
-  		margin-bottom: 0px;
-	}
-	.carousel .item {
-	  height: 250px;
-	}
-}
-@media  (min-width: 487px) and (max-width: 767px) {
-  .carousel {
-  		height: 380px;
-  		margin-bottom: 0px;
-	}
-	.carousel .item {
-	  height: 350px;
-	}
-}
+.images-list,.images-list li{ list-style: none; margin: 0 !important; padding: 0 ;}
+.images-list li{ width: 145px; display: block; float: left; padding-right: 4px; padding-top: 4px;}
 @media (min-width: 768px) and (max-width: 991px) {
-	.carousel {
-  		height: 495px;
-  		margin-bottom: 0px;
-	}
-	.carousel .item {
-	  height: 470px;
-	}
+.images-list li{ width: 110px;}
 }
+#index-container{ padding-top: 2.5em;}
+#index-container h1{font-family: 'Myriad Pro','Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif; font-size: 2em;}
+#index-container hr { margin-top: 2.0em; margin-bottom: 2.0em;}
+#index-container h3,#index-container h4 { padding-top: 0;}
+#index-container h2{ font-size: 22px; font-weight: bold; }
+#index-container .btn:focus,
+#index-container .btn:active:focus{
+  outline: 0px;
+}
+.img_content p{ font-size: 14px; color: #666; }
+.img_content_buttons{ padding:0.5em; text-align: center; padding-bottom: 1em; }
+.mark_list_wrap p{  vertical-align: middle; padding-left: 25px; font-size: 13px; margin-bottom: 8px; }
+span.mark_number{display: inline-block; margin-top: -4px; margin-left: -22px; width: 18px; height: 18px; background: #a61010; border-radius: 9px; text-align: center;
+vertical-align: middle; line-height: 19px; font-size: 14px; font-family: 'Helvetica Neue', 'Arial', sans-serif; color: #fff;}
 
+.mark_list_wrap2{ padding: 8px 0; }
+.mark_list_wrap2 p{ padding-left: 0;font-size: 13px;  }
+.mark_list_wrap2 span.mark_number{ margin-left: 0; }
+.help-content h3{ font-size: 20px; font-weight: bold; }
+.help-content{ font-size: 13px; }
 /*
  * Override Bootstrap's default container.
  */
 
 @media (min-width: 1200px) {
   .container {
-    width: 970px;
+    width: 970px; 
   }
 }
 
+@media (max-width: 767px) {
+  .banner-head{ font-size: 2.1em; }
+  .product-name h3{font-size: 1.0em;}
+  .mweb-logo{  }
+  #app_info{ padding-top: 1.5em; }
+  .app_download{ padding-top: 1.5em; }
+  .app_download>div{padding-left: 0;}
 
+  a.btn-download{ display: inline-block; }
+  a.btn-buy-mas{ display: inline-block; padding-right: 4px; }
+  a.btn-download img{ width: 108px; }
+  a.btn-buy-mas img{ width: 168px; }
+}
 /*
  * Masthead for nav
  */
@@ -140,19 +143,7 @@ pre{background-color: #f8f8f8;border-radius:0px;}
 .blog-nav .active {
   color: #fff;
 }
-.blog-nav .active:after {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 0;
-  margin-left: -5px;
-  vertical-align: middle;
-  content: " ";
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid;
-  border-left: 5px solid transparent;
-}
+
 
 
 /*

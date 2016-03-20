@@ -125,4 +125,12 @@
 			</div>
 		</div>	
 		<div class="mid-col">
+
 			<div class="mid-col-container">
+		{% if ext_global_notice.length %}				
+			<div style="color:#ff0000; text-align:center; padding:8px; margin-top:8px; font-size:1.4em; background:#d9edf7;" class="bg-info site_notice">
+			{{ ext_global_notice }}
+			</div>
+		{% /if %}
+
+			

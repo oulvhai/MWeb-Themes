@@ -39,3 +39,8 @@
         </nav>
       </div>
     </div>
+    {% if ext_global_notice.length %}  
+      <div style="color:#ff0000; text-align:center; padding:8px;" class="bg-info site_notice">
+        {{ ext_global_notice }}
+      </div>
+    {% /if %}
