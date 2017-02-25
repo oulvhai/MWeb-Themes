@@ -1,0 +1,24 @@
+<div class="page-content yue">
+    <div class="wrapper">
+        <div class="home">
+            <ul class="post-list">
+                {% for p in posts %}
+                    {% if p.year.length %}
+                        <div class="post-year">
+                            <li><p class="page-heading">{{ p.year }}</p></li>
+                        </div>
+                    {% else %}
+                    {% /if %}
+                    <div class="post-items">
+                        <li>
+                            <p>
+                                {{ p.dateMonth }} {{ p.dateDay }} - 
+                                <a href="{{ p.url }}" class="post-link">{{ p.title }}</a>
+                            </p>
+                        </li>
+                    </div>
+                {% /for %}
+            </ul>
+        </div>
+    </div>
+</div>
