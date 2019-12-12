@@ -1,0 +1,21 @@
+<div class="markdown-body">
+	{% for p in posts %}
+		{% if p.year.length %} 
+		  	<h2>{{ p.year }}</h2>
+		{% /if %}
+		
+			<div>
+				<h3><a href="{{ p.url }}">{{ p.title }}</a></h3>
+				<p>
+					<time datetime="{{ p.dateGTM }}" pubdate><span class='month'>{{ p.dateMonth }}</span> <span class='day'>{{ p.dateDay }}</span> <span class='year'>{{ p.dateYear }}</span></time>
+					&nbsp;&nbsp;
+				  {% if p.cats.@count %}<span class="categories">posted in {% /if %}
+				  {% for cat in p.cats %}
+					    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
+				  {% /for %} 
+				  {% if p.cats.@count %}</span>{% /if %}
+
+				</p>
+			</div>
+ 	{% /for %} 
+</div>

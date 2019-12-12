@@ -1,0 +1,28 @@
+
+
+<div class="container">
+    
+    <header class="post-header">
+        <h1 class="post-title">Archives</h1>
+    </header>
+      <ol style="display: none;">
+    {% for p in posts %}
+      {% if p.year.length %}
+      </ol>
+        <h1 class="post-year-title">{{ p.year }}</h1>
+        <ol class="post-list post-archives">
+      {% /if %}        
+        <li class="post-stub">
+          <h2 class="post-stub-title">
+            <a href="{{ p.url }}">
+              {{ p.title }}
+            </a>
+          </h2>
+          <p>
+            <time class="post-stub-date" datetime="{{ p.date }}">Posted {{ p.date }}</time>
+          </p>
+        </li>
+      {% /for %} 
+  </ol>
+</div>
+

@@ -1,0 +1,28 @@
+ <div>
+<article role="article">
+  <header>
+    <h1 class="entry-title">Blog Archive</h1>
+  </header>
+	<div id="blog-archives">
+	{% for p in posts %}
+		{% if p.year.length %} 
+		  	<h2>{{ p.year }}</h2>
+		{% /if %}
+		
+			<article>
+				<h1><a href="{{ p.url }}">{{ p.title }}</a></h1>
+				<time datetime="{{ p.dateGTM }}" pubdate><span class='month'>{{ p.dateMonth }}</span> <span class='day'>{{ p.dateDay }}</span> <span class='year'>{{ p.dateYear }}</span></time>
+				<footer>
+				  {% if p.cats.@count %}<span class="categories">posted in {% /if %}
+				  {% for cat in p.cats %}
+					    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
+				  {% /for %} 
+				  {% if p.cats.@count %}</span>{% /if %}
+				</footer>
+			</article>
+ 	{% /for %} 
+
+		</div>
+</article>
+
+</div>

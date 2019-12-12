@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+  <loc>{{ siteURL }}</loc>
+  <lastmod>{{ nowDateGTM }}</lastmod>
+</url>
+{% for p in archives %}
+<url>
+  <loc>{{ siteURL }}{{ p.url }}</loc>
+  <lastmod>{{ p.dateGTM }}</lastmod>
+</url>
+{% /for %}
+{% for p in pages %}
+<url>
+  <loc>{{ siteURL }}{{ p.url }}</loc>
+  <lastmod>{{ p.dateGTM }}</lastmod>
+</url>
+{% /for %}
+{% for p in allCategories %}
+<url>
+  <loc>{{ siteURL }}{{ p.url }}</loc>
+</url>
+{% /for %}
+
+</urlset>

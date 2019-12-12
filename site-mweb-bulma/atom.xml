@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[{{ siteName }}]]></title>
+  <link href="{{ siteURL }}atom.xml" rel="self"/>
+  <link href="{{ siteURL }}"/>
+  <updated>{{ lastBuildDate }}</updated>
+  <id>{{ siteURL }}</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://www.mweb.im/">MWeb</generator>
+  {% for p in posts %}
+  <entry>
+    <title type="html"><![CDATA[{{ p.title }}]]></title>
+    <link href="{{ siteURL }}{{ p.url }}"/>
+    <updated>{{ p.artDate }}</updated>
+    <id>{{ siteURL }}{{ p.url }}</id>
+    <content type="html"><![CDATA[
+{{ p.content }}
+]]></content>
+  </entry>
+  {% /for %}
+</feed>

@@ -1,0 +1,29 @@
+<div class="container" id="content-wrap">
+ 
+
+	<div class="row">
+		<div class="col-sm-10 blog-main">
+			<h1 style="padding-left: 20px;">
+				<a href="help.html">Documentation</a> - {{post.title}}</h1>
+		</div>
+	</div>
+	<hr style="margin-bottom: 20px;" />
+
+
+      <div class="row">
+
+        <div class="col-sm-10 blog-main">
+			<div class="blog-content-wrap">
+				<div class="blog-post">
+		            <div class="content-responsive">
+		            {{ post.content }}
+		            </div>
+				</div><!-- /.blog-post -->
+			</div>
+			<div class="share-comment">
+			{{ commentAndShareCode }}
+			</div>
+
+        </div><!-- /.blog-main -->
+	</div>
+</div>

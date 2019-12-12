@@ -1,0 +1,86 @@
+[
+   {
+      "title":"logo path",
+      "variableName":"logo_path",
+      "inputFieldHeight":22,
+      "exampleText":"240x240"
+   },
+   {
+      "title":"twitter",
+      "variableName":"twitter_url",
+      "inputFieldHeight":22,
+      "exampleText":"your twitter url"
+   },
+   {
+      "title":"github",
+      "variableName":"github_url",
+      "inputFieldHeight":22,
+      "exampleText":"your github url"
+   },
+   {
+      "title":"weibo",
+      "variableName":"weibo_url",
+      "inputFieldHeight":22,
+      "exampleText":"your weibo url"
+   },
+   {
+      "title":"facebook",
+      "variableName":"facebook_url",
+      "inputFieldHeight":22,
+      "exampleText":"your facebook url"
+   },
+   {
+      "title":"stackoverflow",
+      "variableName":"stackoverflow_url",
+      "inputFieldHeight":22,
+      "exampleText":"your stackoverflow url"
+   },
+   {
+      "title":"linkedin",
+      "variableName":"linkedin_url",
+      "inputFieldHeight":22,
+      "exampleText":"your linkedin url"
+   },
+   {
+      "title":"pinterest",
+      "variableName":"pinterest_url",
+      "inputFieldHeight":22,
+      "exampleText":"your pinterest url"
+   },
+   {
+      "title":"quora",
+      "variableName":"quora_url",
+      "inputFieldHeight":22,
+      "exampleText":"your quora url"
+   },
+   {
+      "title":"google",
+      "variableName":"google_url",
+      "inputFieldHeight":22,
+      "exampleText":"your google plus url"
+   },
+   {
+      "title":"instagram",
+      "variableName":"instagram_url",
+      "inputFieldHeight":22,
+      "exampleText":"your instagram url"
+   },
+   {
+      "title":"email",
+      "variableName":"email",
+      "inputFieldHeight":22,
+      "exampleText":"your email"
+   },
+   {
+      "title":"disqus",
+      "variableName":"disqus_shortname",
+      "inputFieldHeight":22,
+      "exampleText":"disqus shortname"
+   },
+   {
+      "title":"duoshuo ",
+      "variableName":"duoshuo_shortname",
+      "inputFieldHeight":22,
+      "exampleText":"duoshuo shortname"
+   }
+]

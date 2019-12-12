@@ -1,0 +1,40 @@
+
+<div class="container">
+  <article class="post-container">
+    <header class="post-header">
+        <h1 class="post-title">{{ post.title }}</h1>
+        <p class="post-date">
+                <span>Posted <time datetime="{{ post.date }}" itemprop="datePublished">{{ post.date }}</time></span>
+            </p>
+    </header>
+
+    <div class="post-content clearfix">
+{{ post.content }}
+    </div>
+    <footer class="post-footer clearfix">
+      {% if post.cats.@count %}<p class="post-categories">
+        <span>Categories:</span>{% /if %}
+        {% for cat in post.cats %}
+            <a href="{{ cat.url }}">{{ cat.name }}</span>, 
+        {% /for %}   
+      {% if post.cats.@count %}</p>{% /if %}
+        
+    </footer>
+     <div class="comments-wrap">
+        <div class="share-comments">
+          {{ commentAndShareCode }}
+
+          {% if ext_disqus_shortname.length %}
+            <div id="disqus_thread"></div>
+          {% /if %}
+
+          {% if ext_duoshuo_shortname.length %}
+              <div class="ds-thread" data-thread-key="{{post.url}}" data-url="{{ siteURL }}{{post.url}}" data-title="{{post.title}}"></div>
+          {% /if %}
+        </div>
+      </div><!-- end comments wrap -->
+  </article>
+ </div><!-- end-->
+
+
+

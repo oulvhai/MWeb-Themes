@@ -1,0 +1,44 @@
+ <div class="card">
+                      <header class="card-header">
+                        <p class="card-header-title">
+                           <span class="tran-site-categories">Categories</span> 
+                        </p>
+                     
+                      </header>
+                      <div class="card-content site-categories">
+                        <div class="content"> 
+                          <ul>
+                          {% for p in categoriesTree %}
+                                <li><a href="{{ p.url }}">{{ p.name }}</a>
+                                  {% if p.children.@count %} <ul> {% /if %}
+                                  {% for p2 in p.children %}
+                                        <li><a href="{{ p2.url }}">{{ p2.name }}</a></li>
+                                  {% /for %}
+                                  {% if p.children.@count %} </ul> {% /if %}
+                                </li> 
+                          {% /for %}
+                          </ul>
+                        </div>
+                      </div>
+                     
+                    </div>
+
+                    <div class="card">
+                        <header class="card-header">
+                          <p class="card-header-title">
+                              <span class="tran-site-tags">Tags</span> 
+                          </p>
+                       
+                        </header>
+                        <div class="card-content site-tags">
+                          <div class="content">
+                           <div class="tags">
+                            {% for p in allTags %}
+                              <a class="tag is-link is-light" href="{{ p.url }}">#{{ p.name }}</a> 
+                            {% /for %}
+                           </div>
+                             
+                          </div>
+                        </div>
+                       
+                      </div>

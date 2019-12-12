@@ -1,0 +1,52 @@
+
+<div>
+	<article class="hentry" role="article">
+	<header>
+			  	<h1 class="entry-title">{{post.title}}</h1>
+				<p class="meta"><time datetime="{{post.dateGTM}}" pubdate data-updated="true">{{post.date}}</time></p>
+			 </header>
+		  	<div class="entry-content">
+			  	{{ post.content }}
+			</div>
+
+		
+	  
+		<footer>
+		 <p class="meta">
+
+			{% if post.cats.@count %}<strong>Categories:</strong>&nbsp; {% /if %}
+			<span class="categories">
+			{% for cat in post.cats %}
+			    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
+			{% /for %} 
+			</span>
+		    </p>
+		    <p class="meta">
+		      
+		 </p>
+	    
+		<div class="sharing">
+		  {{ commentAndShareCode }}
+          {% if ext_disqus_shortname.length %}
+            <div id="disqus_thread"></div>
+          {% /if %}
+
+          {% if ext_duoshuo_shortname.length %}
+              <div class="ds-thread" data-thread-key="{{post.url}}" data-url="{{ siteURL }}{{post.url}}" data-title="{{post.title}}"></div>
+          {% /if %}
+
+		</div>
+
+	    <p class="meta">
+	    {% if postNav.prev %}
+	        <a class="basic-alignment left" href="{{ postNav.prev.url }}" 
+	        title="Previous Post: {{ postNav.prev.title }}">&laquo; {{ postNav.prev.title }}</a>
+	    {% /if %}
+	    {% if postNav.next %}
+	        <a class="basic-alignment right" href="{{ postNav.next.url }}" 
+	        title="Next Post: {{ postNav.next.title }}">{{ postNav.next.title }} &raquo;</a>
+	    {% /if %}
+	    </p>
+	  </footer>
+	</article>
+</div>

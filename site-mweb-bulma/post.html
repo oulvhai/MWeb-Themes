@@ -1,0 +1,81 @@
+<div class="hero-body ct-body"></div>
+      
+    </section>
+    <section class="ct-body">
+      <div class="container">
+          <div class="columns is-variable bd-klmn-columns is-4 is-centered">
+              <div class="column is-four-fifths">
+                  <div class="post-body single-content">
+                    {% if post.ext_featured_image.length %}          
+                    <div class="card-image">
+                        <figure class="image">
+                          <img src="{{ post.ext_featured_image }}">
+                        </figure>
+                    </div>
+                    {% /if %}
+                    <h1 class="title">
+                            {{ post.title }}   
+                      </h1>
+                     
+                    
+                      <div class="media">
+                            {% if ext_logo_path %}
+                            <figure class="media-left">
+                              <p class="image is-48x48">
+                                
+                                  <img class="is-rounded" src="{{ ext_logo_path }}">
+                                
+                              </p>
+                            </figure>
+                            {% /if %}
+                            <div class="media-content">
+                              <div class="content">
+                                <p>
+                                 <span class="date">{{ post.date }}</span>
+                                  {% if post.cats.@count %}<span class="tran-posted-in">posted in</span>&nbsp; {% /if %}
+                                  {% for cat in post.cats %}
+                                      <span class="posted-in"><a href='{{ cat.url }}'>{{ cat.name }}</a></span>
+                                  {% /for %}       
+                                  {% if ext_disqus_shortname.length %}
+                                    &nbsp;&nbsp;<a href="{{ siteURL }}{{post.url}}#disqus_thread"><span class="tran-disqus-comments">comments</span></a>
+                                  {% /if %}
+
+                                  {% if ext_duoshuo_shortname.length %}
+                                    &nbsp;<a  class="ds-thread-count" data-thread-key="{{post.url}}" data-count-type="comments" href="{{post.url}}#ds-thread"></a>
+                                  {% /if %} 
+                                      
+                                  <br />
+                                  <span class="tran-tags">Tags:</span>&nbsp;
+                                  {% for tag in post.tags %}
+                                    <a class="tag is-link is-light" href='{{ tag.url }}'>#{{ tag.name }}</a>
+                                  {% /for %}   
+
+                                </p>
+                              </div>
+                            </div>
+                         
+                    </div>
+                </div>
+                  <article class="markdown-body single-content">
+                    {{ post.content }}
+                  </article>
+                  <div class="comments-wrap">
+                    <div class="share-comments">
+                      {{ commentAndShareCode }}
+
+                      {% if ext_disqus_shortname.length %}
+                        <div id="disqus_thread"></div>
+                      {% /if %}
+
+                      {% if ext_duoshuo_shortname.length %}
+                          <div class="ds-thread" data-thread-key="{{post.url}}" data-url="{{ siteURL }}{{post.url}}" data-title="{{post.title}}"></div>
+                      {% /if %}
+                    </div>
+                  </div><!-- end comments wrap -->
+              </div>
+            </div><!-- end columns -->
+      </div><!-- end container -->
+    </section>
+
+
+

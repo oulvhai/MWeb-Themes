@@ -13,6 +13,9 @@
   	{{ siteName }}
   	{% /if %}
   	</title>
+    <link rel="icon" sizes="192x192" href="asset/icon_192.png" />
+    <link rel="shortcut icon" href="asset/icon_64.png" type="image/png" />
+
     <link href="asset/css/bootstrap.min.css" rel="stylesheet">
     <link href="asset/css/style.css" rel="stylesheet">
     <script src="asset/js/jquery.min.js"></script>
@@ -31,11 +34,10 @@
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item" id="menu-index" href="index.html">首页</a>
-          <a class="blog-nav-item" id="menu-help" href="help.html">文档</a>
-          <a class="blog-nav-item" id="menu-blog" href="all.html">博客</a>
-          <a class="blog-nav-item" id="menu-about" href="about.html">关于</a>
-          <a class="blog-nav-item" style="float:right;" href="http://www.mweb.im">English</a>
+           {% for m in siteMenu %}
+        <a class="{{ m.className }}" target="{{ m.target }}" href="{{ m.url }}">{{ m.name }}</a>
+        {% /for %}
+        
         </nav>
       </div>
     </div>
@@ -44,3 +46,4 @@
         {{ ext_global_notice }}
       </div>
     {% /if %}
+    

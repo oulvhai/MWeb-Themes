@@ -1,0 +1,88 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+  {% if pageTitle.length %}  
+  {{ pageTitle }}
+  {% else %}
+  {{ siteName }}
+  {% /if %}
+  </title>
+  {% if post.ext_seo_keywords.length %}<meta name="keywords" content="{{post.ext_seo_keywords}}" />{% /if %}
+  {% if post.ext_seo_des.length %}<meta name="description" content="{{post.ext_seo_des}}" />{% /if %}
+  <link href="atom.xml" rel="alternate" title="{{ siteName }}" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+ 
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:{{ siteDomain }} ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        {% for m in siteMenu %}
+        <li id="{{ m.className }}"><a target="{{ m.target }}" href="{{ m.url }}">{{ m.name }}</a></li>
+        {% /for %}
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; {{ siteName }}</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        {% for m in siteMenu %}
+        <li><a target="{{ m.target }}" href="{{ m.url }}">{{ m.name }}</a></li>
+        {% /for %}
+
+    <li><label>Categories</label></li>
+
+        {% for p in categoriesTree %}
+            <li><a href="{{ p.url }}">{{ p.name }}</a></li>
+        {% /for %} 
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+

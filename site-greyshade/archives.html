@@ -1,0 +1,30 @@
+<div id="content" class="inner">
+	<div itemscope itemtype="http://schema.org/Blog">
+		<section class="archives">
+
+		{% for p in posts %}
+			{% if p.year.length %} 
+			  	<h1 style="top: auto;" class="year">{{ p.year }}</h1>
+			{% /if %}
+			
+
+				<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					<div class="meta">
+						<span class="date"><time datetime="{{ p.dateGTM }}" itemprop="datePublished">{{ p.dateMonth }} {{ p.dateDay }}</time></span>
+						<br>
+						 
+						{% if p.cats.@count %}<span class="tags">posted in {% /if %}
+						{% for cat in p.cats %}
+						    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
+						{% /for %} 
+						{% if p.cats.@count %}</span>{% /if %}
+					    
+					</div>
+					<h1 class="title" itemprop="name"><a href="{{ p.url }}">
+					{{ p.title }}</a></h1>
+				</article>
+	 	{% /for %}
+
+	  </section>
+	</div>
+</div>

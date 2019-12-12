@@ -24,12 +24,5 @@ function preload(arrayOfImages) {
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 
 }else{
-	preload([
-    'asset/img/cn/1-2.jpg',
-    'asset/img/cn/1-3.jpg',
-    'asset/img/cn/2-2.jpg',
-    'asset/img/cn/3-2.jpg',
-    'asset/img/cn/3-3.jpg',
-    'asset/img/cn/4-2.jpg'
-	]);
+	
 }

@@ -1,0 +1,43 @@
+
+
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+    {% if pageTitle.length %}  
+    {{ pageTitle }}
+    {% else %}
+    {{ siteName }}
+    {% /if %}
+    </title>
+    {% if ext_site_icon.length %}<link rel="shortcut icon" href="{{ext_site_icon}}" type="image/png" />{% /if %}
+    {% if post.ext_seo_keywords.length %}<meta name="keywords" content="{{post.ext_seo_keywords}}" />{% /if %}
+    {% if post.ext_seo_des.length %}<meta name="description" content="{{post.ext_seo_des}}" />{% /if %}
+    <link href="atom.xml" rel="alternate" title="{{ siteName }}" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/style.css">
+    
+</head>
+  <body>
+
+
+
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                         <!-- include(section-icons-link.html) -->  
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+

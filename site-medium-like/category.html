@@ -1,0 +1,73 @@
+<script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		{% for p in posts %}
+			<div class="article">
+                <a class="clearlink" href="{{ p.url }}">
+                {% if p.ext_featured_image.length %}
+                  <div class="f-img"><img src="{{ p.ext_featured_image }}" /></div>
+                {% /if %}
+                  <h1>{{ p.title }}</h1>
+                  <div class="a-content">
+                      {% if p.ext_small_image.length %}
+		                  <div class="a-content-img">
+                      		<img src="{{ p.ext_small_image }}" />
+                      	  </div>
+		              {% /if %}
+                      <div class="a-content-text">
+                        {% if p.ext_excerpt.length %}
+                        	{{ p.ext_excerpt }}
+                        {% else %}
+                        	{{ p.desContent }}
+                        {% /if %}
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  {% if p.readMore.length %} <a href="{{ p.url }}">Read more</a>&nbsp;&nbsp; {% /if %}
+                    <span class="date">{{ p.date }}</span>
+                    {% if p.cats.@count %}<span>posted in&nbsp;</span> {% /if %}
+          				  {% for cat in p.cats %}
+          					    <span class="posted-in"><a href='{{ cat.url }}'>{{ cat.name }}</a></span>
+          				  {% /for %} 
+                    
+
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      {% if ext_disqus_shortname.length %}
+                        <a href="{{ siteURL }}{{p.url}}#disqus_thread">comments</a>
+                      {% /if %}
+
+                      {% if ext_duoshuo_shortname.length %}
+                        &nbsp;<a  class="ds-thread-count" data-thread-key="{{p.url}}" data-count-type="comments" href="{{p.url}}#ds-thread"></a>
+                      {% /if %} 
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        {% /for %}
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			  {% if prevPageUrl.length %} <a href="{{ prevPageUrl }}">&laquo; Prev Page</a> {% /if %} 
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			{% if nextPageUrl.length %} <a href="{{ nextPageUrl }}">&raquo; Next Page</a> {% /if %}
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+

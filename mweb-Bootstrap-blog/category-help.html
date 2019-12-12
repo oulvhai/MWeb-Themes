@@ -1,0 +1,49 @@
+
+
+   <div class="container" id="content-wrap">
+
+      <script type="text/javascript">
+      $(function(){
+        $('a.menu-help').addClass('active');
+      });
+      </script>
+      <h1 style="padding-left: 10px;">文档</h1>
+<hr style="margin-bottom: 40px;" />
+      <div class="row">
+        <div class="col-sm-12">
+<div style="padding:0px 10px 12px 10px;">
+          <p><strong>介绍视频</strong></p>
+
+<p>当前的介绍视频有点长而且看着会觉得无聊，建议直接查看下面的文档，文档还算是比较有条理的。介绍视频如下：</p>
+
+<ul>
+<li>Youtube: <a href="https://youtu.be/m3dCnGVGFZQ">https://youtu.be/m3dCnGVGFZQ</a></li>
+<li>Bilibili: <a href="https://www.bilibili.com/video/av26003120/">https://www.bilibili.com/video/av26003120/</a></li>
+</ul>
+</div>
+<hr />
+
+{% for p in posts reversed %}
+
+  <div class="help-item">
+      <a href="{{ p.url }}">
+      {% if p.ext_small_image %}
+  <div class="help-img"><img width="330" src="{{ p.ext_small_image }}" /></div>
+      {% /if %}
+      
+          <h2 class="help-title">{{ p.title }}</h2>
+          <p class="help-des">
+            {{ p.ext_excerpt }}
+          </p>
+        </a>
+  </div><!-- /.blog-post -->
+
+{% /for %}          
+
+
+
+
+
+    </div><!-- /.col-sm-12 -->
+  </div><!-- /.row -->
+</div><!-- /.container -->

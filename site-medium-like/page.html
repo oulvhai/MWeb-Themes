@@ -1,0 +1,17 @@
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '{{post.url}}';
+		currentURL = currentURL.substr(0,currentURL.length-5);
+		$('#menu_item_'+currentURL).addClass('is_active');
+	});
+</script>
+<div class="row">
+
+    <div id="single-page-wrap">
+        <h1>{{post.title}}</h1>
+
+        <div class="markdown-body post-page">
+        {{ post.content }}
+        </div>
+    </div>
+</div>              

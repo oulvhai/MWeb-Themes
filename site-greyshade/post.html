@@ -1,0 +1,21 @@
+<div id="content" class="inner">
+
+	<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+		<h1 class="title" itemprop="name">{{post.title}}</h1>
+		<div class="entry-content" itemprop="articleBody">
+			{{ post.content }}
+		</div>
+	</article>
+	<div class="share-comment">
+	 {{ commentAndShareCode }}
+
+	  {% if ext_disqus_shortname.length %}
+	    <div id="disqus_thread"></div>
+	  {% /if %}
+
+	  {% if ext_duoshuo_shortname.length %}
+	      <div class="ds-thread" data-thread-key="{{post.url}}" data-url="{{ siteURL }}{{post.url}}" data-title="{{post.title}}"></div>
+	  {% /if %}
+
+	</div>
+</div>

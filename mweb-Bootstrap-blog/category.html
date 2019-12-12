@@ -1,54 +1,46 @@
-   <div class="container" id="content-wrap">
+ <div class="container" id="content-wrap">
 
-      <script type="text/javascript">
-      $(function(){
-      	$('#menu-blog').addClass('active');
-      });
-      </script>
+ <!-- include(section-blog-cats.html) -->
       <div class="row">
 
-        <div class="col-sm-8 blog-main">
+        <div class="col-sm-10 blog-main">
+
+        	<div class="blog-content-wrap">
 			{% for p in posts %}
-					<div class="blog-post">
-			            <h2 class="blog-post-title">{{ p.title }}</h2>
-			            <p class="blog-post-meta">{{ p.date }} 
-				            {% if p.cats.@count %}&nbsp;posted in {% /if %}
-							{% for cat in p.cats %}
-							    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
-							{% /for %} 
-							{% if p.cats.@count %} {% /if %}
-			            </p>
-			            <div class="content-responsive">
-			            {{ p.desContent }}
+				<div class="blog-post">
+		            <h2 class="blog-post-title"><a href="{{ p.url }}">{{ p.title }}</a></h2>
+		            <p class="blog-post-meta">{{ p.date }} 
+						{% if p.cats.@count %}&nbsp;posted in {% /if %}
+						{% for cat in p.cats %}
+						    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
+						{% /for %} 
+						{% if p.cats.@count %} {% /if %}
+					 
+		            </p>
+		          </div><!-- /.blog-post -->
+			 {% /for %}          
 
 
-						{% if p.readMore.length %} 
-						<a href="{{ p.url }}" class="more-link">继续阅读 &rarr;</a>
-			    		{% /if %}
-			           </div>
-			          </div><!-- /.blog-post -->
-			 {% /for %} 
+	          <nav>
+	            <ul class="pager">
+	            {% if prevPageUrl.length %}
+	            	<li class=""><a href="{{ prevPageUrl }}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+	            {% else %}
+	            	<li class="  disabled "><a href="#index"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+	            {% /if %}
 
+					<li class=""><a href="archives.html">归档</a></li>
 
-          <nav>
-            <ul class="pager">
-            {% if prevPageUrl.length %}
-            	<li class=""><a href="{{ prevPageUrl }}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-            {% else %}
-            	<li class="  disabled "><a href="#index"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-            {% /if %}
+				{% if nextPageUrl.length %}
+				<li class=""><a href="{{ nextPageUrl }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+				{% else %}
+	            	<li class=" disabled "><a href="#index">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+	            {% /if %}
+	            </ul>
+	          </nav>
 
-				<li class=""><a href="archives.html">归档</a></li>
+        	</div><!-- /.blog-main -->
+		</div>
+	</div>
 
-			{% if nextPageUrl.length %}
-			<li class=""><a href="{{ nextPageUrl }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
-			{% else %}
-            	<li class=" disabled "><a href="#index">下一页 <span aria-hidden="true">&rarr;</span></a></li>
-            {% /if %}
-            </ul>
-          </nav>
-
-        </div><!-- /.blog-main -->
-
-       <!-- slider start -->
-
+</div>

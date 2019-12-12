@@ -1,0 +1,13 @@
+
+
+{% for p in posts %}
+	{% if currentLoop.currentIndex < 1 %}
+		<div class="markdown-body">
+		<h1>{{p.title}}</h1>
+
+		{{ p.content }}
+
+		</div>
+	{% /if %}
+
+ {% /for %} 

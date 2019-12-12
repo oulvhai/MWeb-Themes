@@ -1,0 +1,32 @@
+[
+   {
+      "title":"small img",
+      "variableName":"small_image",
+      "inputFieldHeight":22,
+      "exampleText":"small image path"
+   },
+   {
+      "title":"featured",
+      "variableName":"featured_image",
+      "inputFieldHeight":22,
+      "exampleText":"featured image path"
+   },
+   {
+      "title":"excerpt",
+      "variableName":"excerpt",
+      "inputFieldHeight":66,
+      "exampleText":""
+   },
+   {
+      "title":"seo KW",
+      "variableName":"seo_keywords",
+      "inputFieldHeight":44,
+      "exampleText":"seo keywords"
+   },
+   {
+      "title":"seo Des",
+      "variableName":"seo_des",
+      "inputFieldHeight":66,
+      "exampleText":"seo description"
+   }
+]

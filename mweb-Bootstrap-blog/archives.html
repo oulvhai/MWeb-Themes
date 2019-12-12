@@ -6,28 +6,28 @@
 
 <div class="container" id="content-wrap">
 
-      <div class="row">
-
-        <div class="col-sm-8 blog-main">
+<div class="row">
+    <div class="col-sm-12 blog-main">
         <div class="content-responsive">
-	<h1>归档</h1>
+			<h1>归档</h1>
 
-	{% for p in posts %}
-		{% if p.year.length %} 
-		<hr />
-		<h2>{{ p.year }}</h2>
-		{% /if %}
-		<h3><a href="{{ p.url }}">{{ p.title }}</a>
-<br />
-		<small><time datetime="{{ p.dateGTM }}" itemprop="datePublished">{{ p.dateMonth }} {{ p.dateDay }}</time></span>
-					{% if p.cats.@count %}<span class="tags">posted in {% /if %}
-					{% for cat in p.cats %}
-					    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
-					{% /for %} 
-					{% if p.cats.@count %}</span>{% /if %}</small></h3>
+			{% for p in posts %}
+				{% if p.year.length %} 
+				<hr />
+				<h2>{{ p.year }}</h2>
+				{% /if %}
+				<h3><a href="{{ p.url }}">{{ p.title }}</a>
+		<br />
+				<small><time datetime="{{ p.dateGTM }}" itemprop="datePublished">{{ p.dateMonth }} {{ p.dateDay }}</time></span>
+							{% if p.cats.@count %}<span class="tags">posted in {% /if %}
+							{% for cat in p.cats %}
+							    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
+							{% /for %} 
+							{% if p.cats.@count %}</span>{% /if %}</small></h3>
 
-	 {% /for %}
+			{% /for %}
+		</div>
 	</div>
 </div><!-- /.blog-main -->
 
-       <!-- slider start -->
+</div>

@@ -1,0 +1,36 @@
+
+{% if post.chart_LaTeX.length %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+{% /if %}
+  
+
+{% if post.chart_flowSeq.length %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.11.0/flowchart.min.js"></script>
+{% /if %}
+
+{% if post.chart_VIZ.length %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.0.0/viz.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.0.0/full.render.js"></script>
+{% /if %}
+
+{% if post.chart_ECharts.length %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts.min.js"></script>
+{% /if %}
+
+{% if post.chart_scripts.length %}
+  	{{post.chart_scripts}}
+{% /if %}
+
+{% if post.chart_mermaid.length %}
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.3/mermaid.min.js"></script>
+{% /if %}
+
+
+{% if post.chart_codeblock.length %}
+<script src="asset/prism.js"></script>
+{% /if %}

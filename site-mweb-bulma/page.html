@@ -1,0 +1,35 @@
+<div class="hero-body ct-body"></div>
+      
+    </section>
+    <section class="ct-body">
+      <div class="container">
+          <div class="columns is-variable bd-klmn-columns is-4 is-centered">
+              <div class="column is-four-fifths">
+                  <div class="post-body single-content">
+                    {% if post.ext_featured_image.length %}          
+                    <div class="card-image">
+                        <figure class="image">
+                          <img src="{{ post.ext_featured_image }}">
+                        </figure>
+                    </div>
+                    {% /if %}
+                    <h1 class="title">
+                            {{ post.title }}   
+                      </h1>
+                      {% if post.ext_excerpt.length %}
+                          <p style="display: block;" class="subtitle">{{ post.ext_excerpt }}</p>
+                      {% /if %} 
+                    
+                     
+                </div>
+                  <article class="markdown-body single-content">
+                    {{ post.content }}
+                  </article>
+                 
+              </div>
+            </div><!-- end columns -->
+      </div><!-- end container -->
+    </section>
+
+
+

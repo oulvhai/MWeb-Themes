@@ -1,16 +1,22 @@
+<script type="text/javascript">
+      $(function(){
+        $('a.menu-index').addClass('active');
+      });
+      
+      </script>
+
 <div class="product-name">
 
-
 <div class="container" id="app_info">
-  <div class="col-sm-8 col-sm-offset-2">
+  <div class="product-info">
 
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-3" id="logo-container">
           <img class="mweb-logo" width="110px" src="asset/img/logo.png" />
         </div>
         <div class="col-sm-9">
-          <h1 style="padding-top: 8px;" class="banner-head">MWeb for Mac</h1>
-          <h3>Pro Markdown writing, note taking and static blog generator App</h3>
+          <h1 class="banner-head">MWeb for Mac, iPad and iPhone</h1>
+          <h2>Pro Markdown writing, note taking and static blog generator App</h2>
         </div>
       </div>
 
@@ -18,11 +24,16 @@
 
          <div class="col-sm-12">
           <p>
-          <a class="btn-buy-mas"  target="_blank" onclick="ga('send','event','buy-mweb');" href="https://itunes.apple.com/us/app/mweb-pro-markdown-writing/id954188948?ls=1&mt=12" ><img src="asset/img/buy-mas-btn.png" /></a>
-          <a class="btn-download" target="_blank"  onclick=" ga('send','event','download-mweb'); " href="https://dl.devmate.com/com.coderforart.MWeb/MWeb-ProMarkdownwriting%2CnotetakingandstaticbloggeneratorApp.dmg"><img src="asset/img/download-btn.png" /></a>
+          <a class="btn-video" onclick="ga('send','event','video-zh');" href="help.html"  ><img src="asset/img/video-btn.png" /></a>
+
+          <a class="btn-buy-mas"  target="_blank"  onclick="ga('send','event','buy-mweb-zh');" href="https://itunes.apple.com/us/app/mweb/id1403919533?l=zh&ls=1&mt=12" ><img src="asset/img/buy-mas-btn.png" /></a>
+
+          <a class="btn-buy-ios"  target="_blank" onclick="ga('send','event','buy-mweb-zh-ios');" href="https://itunes.apple.com/us/app/mweb-pro-markdown-writing/id1183407767?l=cn&mt=8" ><img src="asset/img/download-iOS-btn.png" /></a>
+
+          <a class="btn-download" target="_blank"  onclick="ga('send','event','download-mweb-zh'); " href="https://dl.devmate.com/com.coderforart.MWeb3/MWeb3-ProMarkdownwriting,notetakingandstaticbloggeneratorApp.dmg"><img src="asset/img/download-btn.png" /></a>
           </p>
           
-          <p class="download-mweb-store"><a onclick="ga('send','event','buy-mweb-store');" target="_blank" href="https://sites.fastspring.com/mweb/product/mweb">or <strong>buy now</strong> for $9.99 on MWeb Store.</a></p>
+           <p class="download-mweb-store"><a onclick="ga('send','event','buy-mweb-store');" href="buy.html">or <strong>buy now</strong> for $19.99 on MWeb Store.</a></p>
         </div>
       
       </div>
@@ -37,171 +48,88 @@
 
     <div id="index-container" class="container">
 
-<h1 style="text-align: center;">Introducing MWeb for Mac</h1>
+<h2 class="bigTitle">Screenshots</h1>
 
 <hr />
  <div class="row">
+<ul class="screenshots">
+<li><a href="asset/screenshots/Screen-Shot-1.jpg" rel="group1"  class="screenshots_a"><img src="asset/screenshots/Screen-Shot-1s.jpg"></a></li>
+<li><a href="asset/screenshots/Screen-Shot-2.jpg" rel="group1"  class="screenshots_a"><img src="asset/screenshots/Screen-Shot-2s.jpg"></a></li>
+<li><a href="asset/screenshots/Screen-Shot-3.jpg" rel="group1"  class="screenshots_a"><img src="asset/screenshots/Screen-Shot-3s.jpg"></a></li>
+<li><a href="asset/screenshots/Screen-Shot-4.jpg" rel="group1"  class="screenshots_a"><img src="asset/screenshots/Screen-Shot-4s.jpg"></a></li>
+<li><a href="asset/screenshots/Screen-Shot-5.jpg" rel="group1"  class="screenshots_a"><img src="asset/screenshots/Screen-Shot-5s.jpg"></a></li>
 
-    <div class="col-sm-8">
-       <div class="img_content">
-        
-        <img class="img-responsive" src="asset/img/en/1-1.jpg" />
 
-        <p style="text-align: center;">View - Dark Mode or CMD + Option + L</p>
-        <p style="text-align: center; display: none;">The image will display in editor immediately.</p>
-        <p style="text-align: center; display: none;">Editor&amp;Live Preview: CMD + 4, Outline View: CMD + 8 </p>
-       </div>
-       <div class="img_content_buttons center-block">
-        <div class="btn-group" role="group" aria-label="...">
-          <button type="button" onclick="switchImageByName(this,'asset/img/en/1-1.jpg',0);" class="btn btn-default disabled"><b>Dark Mode</b></button>
-          <button type="button" onclick="switchImageByName(this,'asset/img/en/1-2.jpg',1);" class="btn btn-default"><b>Drag &amp; Drop Insert Image</b></button>
-          <button type="button" onclick="switchImageByName(this,'asset/img/en/1-3.jpg',2);" class="btn btn-default"><b>LaTex Live Preview in Editor</b></button>
-        </div>
-       </div>
+</ul>
 
-     </div>
-     <div class="col-sm-4">
-     <h2>Minimal UI, powerful tool</h2>
-     <p>
-Supported Github Flavored Markdown syntax: TOC、Table、Fenced code block、LaTex、Task lists、Footnote etc...
+</div>
 
-     </p>
-<br />
-     <h2>Native OS X app</h2>
+<h2  class="bigTitle" style="padding-top: 1.0em;">The special of MWeb</h2>
 
-   <p>MWeb is Native OS X app, more faster and smoother, better writing experience with Markdown!<br/>
-   MWeb supported Dark Mode, Typewriter Scrolling, Drag &amp; Drop or Paste to insert image. The image will display in editor immediately.
-   <br/>
-   For better writing experience with LaTex, MWeb supported LaTex Live Preview in Editor! MWeb also supported Editor&amp;Live Preview View Mode, Outline View etc...</p>
-
-     
-     </div>
-     
-  </div>    
 <hr />
 
  <div class="row">
-     <div class="col-sm-4">
-     <h2>External Mode</h2>
-     <p>
-In External Mode, you can edit classic text and markdown files from anywhere on your Mac. As an example, you can point MWeb to a folder on Dropbox. Shortcuts CMD + E or View - Open External to open External Mode.
-<br />
-For <b>Full Text Search</b> and Drop or Paste to insert image support, please drag the folder to External Mode's sidebar.</p>
-<br />
-<h2>Hexo, Jekyll support</h2>
-<p>
-You can drag the Hexo, Jekyll folder to MWeb for Live Preview and Drag &amp; Drop or Paste to insert image support.</p>
 
+    <div class="col-sm-12 mwebspecial">   
+    <div class="item">    
+        <h2>The software:</h2>
+       <ul>
+<li>Make by native macOS technology, the pursuit of the perfect combination with the system.</li>
+<li>In principle, the first is to pursue a simple interface and high performance, and then it is powerful, easy to use, and full-featured.</li>
+</ul>
 
-     
-     </div>
-     <div class="col-sm-8">
+</div>
+<div class="item">
+    <h2>Markdown syntax:</h2>
+       <ul>
+<li>Use Github Flavored Markdown syntax (GFM).</li>
+<li>Supports Table, TOC, LaTeX, Fenced code block, Task lists, Footnote, etc.</li>
+<li>The Markdown graphics supports mermaid, viz, echarts, plantuml, sequence, flow.</li>
+</ul>
+
+</div>
+<div class="item">
+      <h2>Markdown assist:</h2>
+    <ul>
+<li>Support screenshots and paste, copy and paste, drag and drop Insert images and display them directly in the editor.</li>
+<li>Support for setting the image width when compatible with Markdown syntax.</li>
+<li>Useful Table insert and LaTeX writing aids.</li>
+</ul>
+
+</div>
+<div class="item">
     
-    <div class="img_content">
-        
-        <img class="img-responsive" src="asset/img/en/2-1.jpg" />
+       <h2>Markdown output:</h2>
+<ul>
+<li>Exporting as Image, HTML, Epub, PDF, RTF, Docx.</li>
+<li>Publishing to Wordrpess, Metaweblog API, Wordpress.com, Evernote, Blogger, Medium, Tumblr.</li>
+<li>Image upload service supports Google Photos, Imgur, qiniu, upyun and Custom API.</li>
+</ul>
 
-        <p style="text-align: center;">Drag the folder to sidebar. Preview Only: CMD + R。</p>
-        <p style="text-align: center; display: none;">Drag &amp; Drop insert image for Jekyll</p>
 
-       </div>
-       <div class="img_content_buttons center-block">
-        <div class="btn-group" role="group" aria-label="...">
-          <button type="button" onclick="switchImageByName(this,'asset/img/en/2-1.jpg',0);" class="btn btn-default disabled"><b>Preview Only</b></button>
-          <button type="button" onclick="switchImageByName(this,'asset/img/en/2-2.jpg',1);" class="btn btn-default"><b>Drag &amp; Drop insert image for Jekyll</b></button>
-        
-        </div>
-       </div>
+</div>
+<div class="item">
+      <h2>Markdown note taking:</h2>
+    <ul>
+<li>A powerful document library supports category trees and tag management documents. Documents can be categorized into multiple categories. You can export a category to Epub, PDF, and generate static websites. There is good for note taking, personal knowledge collection, management, and output.</li>
+<li>Quick Note.</li>
+<li>Quick Search.</li>
+</ul>
 
+
+</div>
+<div class="item">    
+       <h2>External Markdown documentation:</h2>
+       <ul>
+<li>External Markdown documents use External Mode. The External Mode uses a directory tree to edit and manage your markdown documentation. It also supports gitbook, JekyII, and Hexo editing and image insertion.</li>
+</ul>
+</div>
 
      </div>
-
-     
-
-  </div>    
+</div>    
 <hr />
 
-
- <div class="row"> <div class="col-sm-8">
-    
-     <div class="img_content">
-        
-        <img class="img-responsive" src="asset/img/en/3-1.jpg" />
-
-        <p style="text-align: center;">Click the right-top corner share button for export, publish.</p>
-        <p style="text-align: center; display: none;">Publish to WordPress</p>
-        <p style="text-align: center; display: none;">Local images upload</p>
-       </div>
-       <div class="img_content_buttons center-block">
-        <div class="btn-group" role="group" aria-label="...">
-          <button type="button" onclick="switchImageByName(this,'asset/img/en/3-1.jpg',0);" class="btn btn-default disabled"><b>PDF with TOC</b></button>
-          <button type="button" onclick="switchImageByName(this,'asset/img/en/3-2.jpg',1);" class="btn btn-default"><b>Publish to WordPress </b></button>
-          <button type="button" onclick="switchImageByName(this,'asset/img/en/3-3.jpg',2);" class="btn btn-default"><b>Local images upload</b></button>
-        </div>
-       </div>
-
-     </div>
-     <div class="col-sm-4">
-     <h2>Export</h2>
-     <p>
-Export to PDF with Table of Content, HTML, image, RTF, docx.
-     </p>
-<br />
-     <h2>Publish</h2>
-
-     <p>
-     Publish to WordPress, Metaweblog API blog services, Blogger, Medium, Tumblr and Evernote notebooks directly from MWeb.
-     </p>
-<br />
-     <h2>Local images upload</h2>
-     <p>
-     Upload the local images to Google Photos, imgur and custom images service.
-     </p>
-
-     
-     </div>
-    
-  </div>    
-<hr />
-
- <div class="row">
-     <div class="col-sm-4">
-     <h2>Library Mode</h2>
-
-     <p>
-<p>MWeb has two Mode, External Mode and Library Mode. <br/>
-Library Mode design for note taking and static blog/website generator, it use categories tree to organize documents. You can set a document to multi categories. Shortcuts <code>CMD + L</code> or <code>View</code> - <code>Open Library</code> to open Library Mode. </p>
-     <br />
-     <h2>Static blog generator</h2>
-<p>
-MWeb's static blog generator is very easy to use, just set the document to the site category and click build site! MWeb's static blog is difference with the Jekyll like static blog. It's no require HTTP server for preview.</p>
-
-     
-     </div>
-     <div class="col-sm-8">
-        <div class="img_content">
-        
-        <img class="img-responsive" src="asset/img/en/4-1.jpg" />
-
-        <p style="text-align: center;">Library Mode</p>
-        <p style="text-align: center; display: none;">Static blog generator</p>
-
-       </div>
-       <div class="img_content_buttons center-block">
-        <div class="btn-group" role="group" aria-label="...">
-          <button type="button" onclick="switchImageByName(this,'asset/img/en/4-1.jpg',0);" class="btn btn-default disabled"><b>Library Mode</b></button>
-          <button type="button" onclick="switchImageByName(this,'asset/img/en/4-2.jpg',1);" class="btn btn-default"><b>Static blog generator</b></button>
-        
-        </div>
-       </div>
-
-    </div>
-
-     
-
-  </div>  
-
-<hr />
+ 
 
    <div class="row">
       <div class="col-sm-6">
@@ -218,14 +146,77 @@ MWeb's static blog generator is very easy to use, just set the document to the s
       <div class="col-sm-6">
       <h3>News</h3>
       <ul>
-      {% for p in posts %}
+      
+       {% for p in posts %}
       {% if currentLoop.currentIndex < 6 %}
       <li><a href="{{ p.url }}">{{ p.title }}</a></li>
       {% /if %}
     {% /for %}
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
     </ul>
       </div>
     </div>
+<br /><br />
+    
 
+<hr />
+
+ <div class="row">
+
+    <div class="col-sm-12 mwebspecial"> 
+      <h4>MWeb 2.x Download</h4>
+    <p>Mac App Store: <a href="https://itunes.apple.com/cn/app/mweb-pro-markdown-writing/id954188948?l=zh&ls=1&mt=12" target="_blank">Go to Mac App Store Download</a><br />
+    Outof Mac App Store:  <a href="https://dl.devmate.com/com.coderforart.MWeb/MWeb-ProMarkdownwriting%2CnotetakingandstaticbloggeneratorApp.dmg" target="_blank">Click Here for Download</a>
+  </p>
+    </div>
+  </div>
 </div>
+<div style="display:none"><div style="width:980px; height:598px;" id="product_video">
 
+
+</div></div>
+<script type="text/javascript" src="asset/fancybox/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="asset/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("a.screenshots_a").fancybox({width:1440, height:900  });
+
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      //$("a.btn-video").attr('target','_blank').attr('href','');
+    }else{
+      $("a.btn-video").click(function(){
+        //$('#product_video').html('<iframe height=598 width=980 src="" frameborder=0 allowfullscreen></iframe>');
+      }).fancybox();
+    }
+  });
+</script>  

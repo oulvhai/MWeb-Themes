@@ -1,0 +1,31 @@
+<aside class="sidebar"> 
+
+	<section>
+	  <h1>Categories</h1>
+	  <ul id="recent_posts">
+	  {% for p in categoriesTree %}
+	      <li class="post">
+	        <a href="{{ p.url }}"><strong>{{ p.name }}&nbsp;({{ p.count }})</strong></a>
+	        {% if p.children.@count %} <p class="cat-children-p"> {% /if %}
+	        {% for p2 in p.children %}
+	        	<a href="{{ p2.url }}">{{ p2.name }}&nbsp;({{ p2.count }})</a>&nbsp;&nbsp;
+	        {% /for %}
+	        {% if p.children.@count %} </p> {% /if %}
+	      </li>
+	  {% /for %} 
+	  </ul>
+	</section>
+	<section>
+	  <h1>Recent Posts</h1>
+	  <ul id="recent_posts">
+	  {% for p in recentPosts %}
+	      {% if currentLoop.currentIndex < 5 %}
+		      <li class="post">
+		        <a href="{{ p.url }}">{{ p.title }}</a>
+		      </li>
+	     {% /if %}
+	  {% /for %} 
+	  </ul>
+	</section>
+	
+</aside>

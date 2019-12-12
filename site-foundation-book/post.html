@@ -1,0 +1,43 @@
+<div class="markdown-body">
+<h1>{{post.title}}</h1>
+
+{{ post.content }}
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		{% if postNav.prev %}
+	        <a href="{{ postNav.prev.url }}"  title="Previous Post: {{ postNav.prev.title }}">&laquo; {{ postNav.prev.title }}</a>
+	    {% /if %}
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		{% if postNav.next %}
+	        <a href="{{ postNav.next.url }}" 
+	        title="Next Post: {{ postNav.next.title }}">{{ postNav.next.title }} &raquo;</a>
+	    {% /if %}
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+{{ commentAndShareCode }}
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '{{ post.url }}';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>

@@ -1,0 +1,45 @@
+
+    
+     
+   <script type="text/javascript">
+      $(function(){
+        $('a.menu-blog').addClass('active');
+      });
+      </script>
+
+    
+      <script type="text/javascript">
+    $(function(){
+      var url = window.location.pathname;
+    var filename = url.substring(url.lastIndexOf('/')+1);
+    if (filename.length > 5) {
+      $('.blog-cats a').each(function(){
+        var href = $(this).attr('href');
+        if(href.length>5){
+          href = href.substring(0,href.length-5);
+          if (filename.startsWith(href)) { $(this).parent().addClass('active'); }
+        }
+      });
+    }
+    });
+  </script>
+   <div class="row">
+        <div class="col-sm-12">
+
+          <div class="blog-categories" style="padding-top: 0em; padding-bottom: 0em;">
+
+        <ul class="blog-cats">
+{% for p in categoriesTree %}
+  {% if p.url equalsString "blog.html" %}
+      <li><a href="{{ p.url }}">All</a></li> 
+        {% for p2 in p.children %}
+              <li><a href="{{ p2.url }}">{{ p2.name }}</a></li>
+        {% /for %}
+    {% /if %}
+{% /for %}
+        </ul>
+        <div class="rss"><a href="atom.xml">RSS</a></div>
+          </div>
+       </div>
+     </div>
+     <hr style="margin-bottom: 60px;" />

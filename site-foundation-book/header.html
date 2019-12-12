@@ -1,0 +1,83 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+  {% if pageTitle.length %}  
+  {{ pageTitle }}
+  {% else %}
+  {{ siteName }}
+  {% /if %}
+  </title>
+ <meta name="description" content="{{ siteDes }}">
+ <link href="atom.xml" rel="alternate" title="{{ siteName }}" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">{{ siteName }}</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; {{ siteName }}</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      {% for c in categoriesTree %}
+        <li class="divider"></li>
+        <li><label>{{ c.name }}</label></li>
+
+          {% for p2 in c.posts %}
+            <li><a title="{{ p2.title }}" href="{{ p2.url }}">{{ p2.title }}</a></li>
+          {% /for %}
+
+      {% /for %}
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    {% for c in categoriesTree %}
+                      <li class="side-title"><span>{{ c.name }}</span></li>
+                        {% for p2 in c.posts %}
+                          <li><a title="{{ p2.title }}" href="{{ p2.url }}">{{ p2.title }}</a></li>
+                        {% /for %}
+
+                    {% /for %}
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+

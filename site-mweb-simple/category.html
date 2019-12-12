@@ -1,0 +1,39 @@
+<div id="post-index" class="container">
+    
+    <header class="post-header">
+        <h1 class="post-title">{{ siteName }}</h1>
+        <p class="des">{{ siteDes }}</p>
+    </header>
+     <ol class="post-list">
+        {% for p in posts %}
+        
+            <li class="post-stub">
+              <h2 class="post-stub-title">
+                <a href="{{ p.url }}">
+                  {{ p.title }}
+                </a>
+              </h2>
+              <p>
+                <time class="post-stub-date" datetime="2019-09-26">Posted {{ p.date }}</time>
+              </p>
+
+              {% if p.ext_excerpt.length %}
+                  <div class="post-content">{{ p.ext_excerpt }}</div>
+              {% /if %}   
+            
+              <div class="post-read-more">
+                <a href="{{ p.url }}">[Read More]</a>
+              </div>
+            </li>
+            {% /for %}
+      </ol>
+  <div class="post-navigation">
+    <nav class="pagination">
+      {% if prevPageUrl.length %} <a class="newer-posts" href="{{ prevPageUrl }}">&larr; Newer Posts</a> {% /if %} 
+      {% if nextPageUrl.length %} <a class="older-posts" href="{{ nextPageUrl }}">Older Posts &rarr;</a> {% /if %}
+    </nav>
+  </div>
+</div>
+             
+
+

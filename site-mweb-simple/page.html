@@ -1,0 +1,19 @@
+
+<div class="container">
+  <article class="post-container">
+    <header class="post-header">
+        <h1 class="post-title">{{ post.title }}</h1>
+        <p class="post-date">
+                <span>Posted <time datetime="{{ post.date }}" itemprop="datePublished">{{ post.date }}</time></span>
+            </p>
+    </header>
+
+    <div class="post-content clearfix">
+{{ post.content }}
+    </div>
+    
+  </article>
+ </div><!-- end-->
+
+
+

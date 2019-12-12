@@ -1,0 +1,51 @@
+
+ <div class="hero-body ct-body">
+    <div class="container">
+          <h1 class="title-only">
+                <span>#{{currentTag.name}}</span>
+          </h1>
+    </div>
+  </div>
+</section>
+<section class="ct-body">
+      <div class="container">
+          <div class="columns is-variable bd-klmn-columns is-4">
+              <div class="column is-two-thirds">
+               <div class="post-body">
+                  <div class="card archives">
+                    {% for p in posts %}
+                    
+                        
+                       <div class="card-content">
+                         <div class="content">
+                          <a href="{{ p.url }}">
+                            <h2 class="title">{{ p.title }}</h2>
+                          </a>
+                             <p class="des">
+                             <span class="date">{{ p.date }}</span>
+                              {% if p.cats.@count %}<span class="tran-posted-in">posted in</span>&nbsp; {% /if %}
+                              {% for cat in p.cats %}
+                                  <span class="posted-in"><a href='{{ cat.url }}'>{{ cat.name }}</a></span>
+                              {% /for %}       
+                             
+                                  
+                              <span class="tran-tags">Tags:</span>&nbsp;
+                              {% for tag in p.tags %}
+                                <a href='{{ tag.url }}'>#{{ tag.name }}</a>
+                              {% /for %}  
+                           </p>
+                          </div>
+                       </div>
+                    {% /for %} 
+          </div><!-- end card -->
+        </div><!-- end post body -->
+
+              </div><!-- end column -->
+              <div class="column">
+                   <!-- include(section-cats_tags.html) -->
+              </div>
+            </div>
+
+          
+      </div>
+    </section>
